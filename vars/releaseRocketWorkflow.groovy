@@ -1,6 +1,5 @@
 
-def call(String workflowId, String releaseId) {
+def call(Map args[:]) {
 
-    echo "WorkflowId: ${workflowId}"
-    echo "ReleaseId: ${releaseId}"
+    echo "WorkflowId: ${args}"
 }

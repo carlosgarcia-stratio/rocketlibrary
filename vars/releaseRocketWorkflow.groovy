@@ -3,7 +3,6 @@
 def call(Map props = [:]) {
 
     println(props)
-    service.rocketDev
-    service.rocketPre
-    service.rocketPro
+    services.initRocketInstances()
+    println(instances)
 }

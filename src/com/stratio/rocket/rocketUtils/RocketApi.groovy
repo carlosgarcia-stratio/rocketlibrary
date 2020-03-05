@@ -1,4 +1,4 @@
-package io.jenkins.pipeline.sample
+package com.stratio.rocket.rocketUtils
 
 class RocketApi implements Serializable {
 

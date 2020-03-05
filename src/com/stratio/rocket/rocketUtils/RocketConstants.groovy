@@ -1,4 +1,4 @@
-package com.stratio.rocket
+package com.stratio.rocket.rocketUtils
 
 class RocketConstants implements Serializable {
 

@@ -1,5 +1,10 @@
 
-def call(Map props = [:]) {
+def call(body) {
 
-    println(props)
+    def config = [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = config
+    body()
+
+    println(config)
 }

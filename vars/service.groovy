@@ -12,15 +12,15 @@ import com.stratio.rocket.rocketUtils.RocketConstants
 
 def initRocketInstances() {
 
-    if (env.contains(RocketConstants.ROCKET_API_URL_DEV)) {
+    if (env.RocketConstants.ROCKET_API_URL_DEV) {
       instances[RocketConstants.DEV] = new RocketApi(env[RocketConstants.ROCKET_API_URL_DEV])
     }
 
-    if (env.contains(RocketConstants.ROCKET_API_URL_DEV)) {
+    if (env.RocketConstants.ROCKET_API_URL_DEV) {
         instances[RocketConstants.PRE] = new RocketApi(env[RocketConstants.ROCKET_API_URL_PRE])
     }
 
-    if (env.contains(RocketConstants.ROCKET_API_URL_DEV)) {
+    if (env.RocketConstants.ROCKET_API_URL_DEV) {
         instances[RocketConstants.PRO] = new RocketApi(env[RocketConstants.ROCKET_API_URL_PRO])
     }
 }

@@ -3,6 +3,6 @@
 def call(Map props = [:]) {
 
     println(props)
-    services.initRocketInstances()
-    println(instances)
+    service.initRocketInstances()
+    println(service.instances)
 }

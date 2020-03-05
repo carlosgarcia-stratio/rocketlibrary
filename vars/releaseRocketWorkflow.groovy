@@ -1,5 +1,5 @@
 
 def call(Map props = [:]) {
 
-    (props)
+    println(props)
 }

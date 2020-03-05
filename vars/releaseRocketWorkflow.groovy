@@ -1,6 +1,10 @@
 
-def call(String workflowId, String releaseId) {
+def call(body) {
 
-    echo "WorkflowId: ${workflowId}"
-    echo "ReleaseId: ${releaseId}"
+    def config = [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = config
+    body()
+
+    println(config)
 }

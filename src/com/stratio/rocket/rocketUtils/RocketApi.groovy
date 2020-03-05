@@ -4,8 +4,8 @@ class RocketApi implements Serializable {
 
 	def isActive = false
 
-	RocketApi(Map env, String urlVar) {
-		echo "${env[urlVar]}"
+	RocketApi(String urlVar) {
+		println(urlVar)
 	}
 
 }

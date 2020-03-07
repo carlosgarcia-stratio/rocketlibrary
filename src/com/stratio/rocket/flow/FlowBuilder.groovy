@@ -26,7 +26,7 @@ def String selectFlowType() {
         log.error("No flow found for active instances")
         error("No flow found for active instances")
     }
-    return flow
+    return Flows.FLOWS[flow]
 }
 
 return this

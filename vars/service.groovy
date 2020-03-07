@@ -2,6 +2,7 @@
 
 import groovy.transform.Field
 import com.stratio.rocket.rocketUtils.RocketConstants
+import com.stratio.rocket.rocketUtils.RocketClient
 
 @Field static def rocketDev = new RocketClient()
 @Field static def rocketPre = new RocketClient()

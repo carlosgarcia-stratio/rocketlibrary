@@ -19,7 +19,7 @@ def String getWorkflowRelease(String releaseId) {
                         .get()
                         .insecure()
                         .url("${instance['url']}/release/workflow/${releaseId}")
-                        .getCommand()
+                        .getRequest()
 
     new HttpClient().execute(request)
 }

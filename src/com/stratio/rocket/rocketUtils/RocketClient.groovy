@@ -3,7 +3,7 @@ package com.stratio.rocket.rocketUtils
 import com.stratio.rocket.http.HttpClient
 import com.stratio.rocket.http.HttpRequest
 
-Map instance = [:]
+@Field def instance = [:]
 
 def initialize(String url, String cookieCredentials) {
 

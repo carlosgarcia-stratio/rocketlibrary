@@ -7,7 +7,9 @@ def execute(flow) {
 }
 
 def executeStage(stage){
-    stage.executeStage()
+    node{
+        stage.executeStage()
+    }
 }
 
 return this

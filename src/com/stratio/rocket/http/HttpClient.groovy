@@ -1,9 +1,8 @@
 package com.stratio.rocket.http
 
 
-def execute(String command) {
-    //sh(script: command)
-    println(command)
+def String execute(String command) {
+    sh(script: command, returnStdout = true)
 }
 
 return this

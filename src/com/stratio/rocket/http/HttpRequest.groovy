@@ -10,7 +10,6 @@ class HttpRequest implements Serializable {
 
     HttpRequest withUrl(String url) {
         this.command += " " + url
-        println(this.command)
         return this
     }
 
@@ -43,7 +42,6 @@ class HttpRequest implements Serializable {
 
     HttpRequest withHeader(String header) {
         this.command += " -H '" + aHeader + "'"
-        println(this.command)
         return this
     }
 

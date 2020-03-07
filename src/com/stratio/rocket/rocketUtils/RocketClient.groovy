@@ -15,7 +15,7 @@ def initialize(String url, String cookieCredentials) {
 //Releases
 
 def String getWorkflowRelease(String releaseId) {
-    String request = new HttpRequest().getCommand()
+    String request = new HttpRequest()
                         .get()
                         .insecure()
                         .url("${instance['url']}/release/workflow/${releaseId}")

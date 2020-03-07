@@ -14,7 +14,7 @@ def executeStage() {
 
 def execute() {
     log.info("Deploy Stages execute")
-    rocket.pro.getWorkflowRelease(props["releaseId"])
+    rocket.pro.getWorkflowRelease(context.props["releaseId"])
 }
 
 return this

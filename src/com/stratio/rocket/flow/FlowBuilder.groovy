@@ -1,4 +1,4 @@
-package com.datio.ci.flow
+package com.stratio.rocket.flow
 
 def create(){
     try {

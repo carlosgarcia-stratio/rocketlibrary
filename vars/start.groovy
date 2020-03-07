@@ -1,6 +1,5 @@
 #!groovy
 import com.stratio.rocket.rocketUtils.RocketConstants
-import com.stratio.rocket.flow.FlowBuilder
 
 def call(Map props = [:]) {
 

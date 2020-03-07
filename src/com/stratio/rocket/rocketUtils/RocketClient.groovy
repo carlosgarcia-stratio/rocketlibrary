@@ -5,11 +5,13 @@ import com.stratio.rocket.http.HttpRequest
 import groovy.transform.Field
 
 @Field def instance = [:]
+@Field def isActive = false
 
 def initialize(String url, String cookieCredentials) {
 
     instance["url"] = url
     instance["cookieCredentials"] = cookieCredentials
+    isActive = true
 }
 
 //Releases

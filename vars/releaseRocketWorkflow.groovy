@@ -9,14 +9,7 @@ def call(Map props = [:]) {
 
     println(props)
     service.initRocketInstances()
-    println(service.instances)
 
-    def dev = new RocketClient()
-    dev.initialize(service.instances[RocketConstants.DEV], "")
-
-    def pro = new RocketClient()
-    pro.initialize(service.instances[RocketConstants.PRO], "")
-
-    dev.getWorkflowRelease(props["releaseId"])
-    pro.getWorkflowRelease(props["releaseId"])
+    services.rocketDev.getWorkflowRelease(props["releaseId"])
+    services.rocketPro.getWorkflowRelease(props["releaseId"])
 }

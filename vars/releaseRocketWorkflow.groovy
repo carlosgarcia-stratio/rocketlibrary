@@ -1,5 +1,6 @@
 #!groovy
 import com.stratio.rocket.rocketUtils.RocketConstants
+import com.stratio.rocket.rocketUtils.RocketClient
 
 def call(Map props = [:]) {
 
@@ -9,4 +10,12 @@ def call(Map props = [:]) {
     println(props)
     service.initRocketInstances()
     println(service.instances)
+
+    def dev = new RocketClient()
+    dev.initialize(service.instances[RocketConstants.DEV])
+    dev.getWorkflowRelease(props["releaseId"])
+
+    def pro = new RocketClient()
+    pro.initialize(service.instances[RocketConstants.DEV])
+    pro.getWorkflowRelease(props["releaseId"])
 }

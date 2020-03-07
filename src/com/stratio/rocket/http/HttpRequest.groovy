@@ -41,7 +41,7 @@ class HttpRequest implements Serializable {
     }
 
     HttpRequest withHeader(String header) {
-        this.command += " -H '" + aHeader + "'"
+        this.command += " -H '" + header + "'"
         return this
     }
 
@@ -56,8 +56,8 @@ class HttpRequest implements Serializable {
     }
 
 
-    HttpRequest withCredentials(String aCredentials) {
-        this.command += " -u '" + aCredentials + "'"
+    HttpRequest withCredentials(String credentials) {
+        this.command += " -u '" + credentials + "'"
         return this
     }
 

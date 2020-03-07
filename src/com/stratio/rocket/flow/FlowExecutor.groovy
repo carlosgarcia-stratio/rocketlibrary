@@ -1,7 +1,7 @@
 package com.stratio.rocket.flow
 
 def execute(flow) {
-    flow.each { stages ->
+    flow.each { stage ->
         executeStage(stage)
     }
 }

@@ -7,9 +7,7 @@ def execute(flow) {
 }
 
 def executeStage(stage){
-    return flow.singleStage(stage.name, {
-        stage.executeStage()
-    })
+    stage.executeStage()
 }
 
 return this

@@ -8,7 +8,7 @@ class Stages implements Serializable {
     static String VERIFY = "Verify"
     static String DEPLOY = "Deploy"
 
-    static def stages = [
+    static def instances = [
             (Stages.CHECKOUT) : new Checkout(),
             (Stages.VERIFY) : new Verify(),
             (Stages.DEPLOY) : new Deploy()

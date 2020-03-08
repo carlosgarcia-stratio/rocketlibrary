@@ -98,7 +98,7 @@ def String getWorkflow(String workflowId) {
     String request = new HttpRequest()
             .get()
             .insecure()
-            .withUrl("${instance['url']}/workflow/findById/${workflowId}")
+            .withUrl("${instance['url']}/workflows/findById/${workflowId}")
             .getRequest()
 
     String response = new HttpClient().execute(request)

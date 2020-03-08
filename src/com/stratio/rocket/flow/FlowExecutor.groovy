@@ -17,9 +17,9 @@ def execute(flow) {
 
 def executeStage(fStage){
     stage(fStage.name){
-        new PreStage().executeStage(s)
+        new PreStage().executeStage(fStage)
         fStage.executeStage()
-        new PostStage().executeStage(s)
+        new PostStage().executeStage(fStage)
     }
 }
 

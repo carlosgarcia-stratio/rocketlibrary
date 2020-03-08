@@ -2,7 +2,9 @@ package com.stratio.rocket.http
 
 
 def String execute(String command) {
-    sh(script: command, returnStdout: true)
+    def response = sh(script: command, returnStdout: true)
+    println(response)
+    return response
 }
 
 return this

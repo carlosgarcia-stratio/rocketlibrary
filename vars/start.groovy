@@ -7,8 +7,10 @@ def call(Map props = [:]) {
     env[RocketConstants.ROCKET_API_URL_PRO] = "localhost:9091"
 
     println(props)
+    println(props["releaseId"])
     context.init(props)
     println(context.props)
+    println(context.props["releaseId"])
     rocket.initInstances()
     flow.executor.execute(flow.builder.create())
 }

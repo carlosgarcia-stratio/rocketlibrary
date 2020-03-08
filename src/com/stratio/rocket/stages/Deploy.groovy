@@ -3,7 +3,7 @@ package com.stratio.rocket.stages
 import groovy.transform.Field
 import com.stratio.rocket.flow.Stages
 
-@Field def name = Stages.VERIFY
+@Field def name = Stages.DEPLOY
 
 
 def executeStage() {
@@ -13,7 +13,7 @@ def executeStage() {
 }
 
 def execute() {
-    log.info("Deploy Stages execute")
+    log.info("Deploy Stage execute")
     rocket.pro.getWorkflowRelease(context.props["releaseId"])
 }
 

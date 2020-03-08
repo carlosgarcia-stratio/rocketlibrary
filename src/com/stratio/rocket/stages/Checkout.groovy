@@ -26,7 +26,7 @@ def execute() {
     def folders = jsonWorkflow["group"]["name"].split("/").findAll{ !(it == '' || it == 'home' || it == jsonProject["name"]) }
     context.props["projectName"] = jsonProject["name"]
     context.props["folders"] = folders
-    sleep 15
+    sleep 5
 }
 
 return this

@@ -15,7 +15,7 @@ def execute() {
     log.info("Checkout Stages execute")
     def workflow = rocket.dev.getWorkflow()
     def jsonWorkflow = readJSON text: workflow
-    context.props["workflow"] = workflow
+    context.props["workflow"] = jsonWorkflow
     context.props["projectId"] = jsonWorkflow["projectId"]
     context.props["workflowName"] = jsonWorkflow["name"]
     context.props["workflowDescription"] = jsonWorkflow["description"]

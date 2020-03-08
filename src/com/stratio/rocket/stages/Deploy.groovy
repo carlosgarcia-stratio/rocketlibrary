@@ -17,7 +17,7 @@ def execute() {
     String project = rocket.pro.createProject(context.props["projectName"], "")
     def projectJson = readJSON text: project
 
-    String workflow = rocket.pro.importWorkflow(context.props["workflow"], projectJson["groupId"], projectJson["id"], context.props["workflowName"], context.props["workflowDescription"])
+    String workflow = rocket.pro.importWorkflow(context.props["workflow"].toString(), projectJson["groupId"], projectJson["id"], context.props["workflowName"], context.props["workflowDescription"])
     println(workflow)
     sleep 5
 }

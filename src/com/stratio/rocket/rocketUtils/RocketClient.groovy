@@ -14,14 +14,14 @@ def initialize(String url, String cookieCredentials) {
     isActive = true
 }
 
-//Releases
+// Releases
 
-def String getWorkflowRelease(String releaseId) {
+def String getWorkflowRelease() {
 
     String request = new HttpRequest()
                         .get()
                         .insecure()
-                        .withUrl("${instance['url']}/release/workflow/findById/${releaseId}")
+                        .withUrl("${instance['url']}/release/workflow/findById/${context.props["releaseId"]}")
                         .getRequest()
 
     String response = new HttpClient().execute(request)
@@ -92,13 +92,41 @@ def String updateWorkflowReleaseWorkflowState(String state) {
     return response
 }
 
-//workflows
+// Workflows
 
-def String getWorkflow(String workflowId) {
+def String getWorkflow() {
     String request = new HttpRequest()
             .get()
             .insecure()
-            .withUrl("${instance['url']}/workflows/findById/${workflowId}")
+            .withUrl("${instance['url']}/workflows/findById/${context.props["workflowId"]}")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
+// Project & Folders
+
+def String getProject() {
+    String request = new HttpRequest()
+            .get()
+            .insecure()
+            .withUrl("${instance['url']}/workflows/findById/${context.props["projectId"]}")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
+def String createProject(String name, String description) {
+    String body = "{\"name\":\"${name}\",\"description\":\"${description}\"}"
+
+    String request = new HttpRequest()
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .withUrl("${instance['url']}/projects")
             .getRequest()
 
     String response = new HttpClient().execute(request)

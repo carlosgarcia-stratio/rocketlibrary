@@ -14,6 +14,7 @@ def executeStage() {
 
 def execute() {
     log.info("Deploy Stage execute")
+    rocket.pro.createPorject(cont)
     sleep 15
 }
 

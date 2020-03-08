@@ -16,7 +16,8 @@ def execute() {
     def workflow = rocket.dev.getWorkflow(context.props["workflowId"])
     def jsonWorkflow = readJSON text: workflow
     context.props["workflow"] = workflow
-    folders = jsonWorkflow["group"]["name"].split("/").removeAll(['', 'home'] as Object[])
+    // TODO: Refactor to do it in bash
+    folders = jsonWorkflow["group"]["name"].split("/").findAll{ !(it == '' || it == 'home') }
     println(folders.toString())
 
 

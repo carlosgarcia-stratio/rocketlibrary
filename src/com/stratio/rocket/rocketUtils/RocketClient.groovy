@@ -28,9 +28,25 @@ def String getWorkflowRelease(String releaseId) {
     return response
 }
 
-def String addWorkflowReleaseInfo(String releaseId, String key, String message) {
+def String addWorkflowReleaseStage(String name, String state, String message) {
 
-    String body = "{\"releaseId\":\"${releaseId}\",\"info\":{\"${key}\":\"${message}\"}}"
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"name\":${name},\"state\":${state},\"message\":${message}}"
+
+    String request = new HttpRequest()
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .withUrl("${instance['url']}/release/workflow/addReleaseStage")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
+def String addWorkflowReleaseInfo(String key, String message) {
+
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"info\":{\"${key}\":\"${message}\"}}"
 
     String request = new HttpRequest()
             .post()
@@ -38,6 +54,38 @@ def String addWorkflowReleaseInfo(String releaseId, String key, String message) 
             .withBody(body)
             .insecure()
             .withUrl("${instance['url']}/release/workflow/addInfo")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
+def String updateWorkflowReleaseExecutionState(String state) {
+
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"executionState\":${state}}"
+
+    String request = new HttpRequest()
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .withUrl("${instance['url']}/release/workflow/executionState")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
+def String updateWorkflowReleaseWorkflowState(String state) {
+
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"workflowState\":${state}}"
+
+    String request = new HttpRequest()
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .withUrl("${instance['url']}/release/workflow/workflowState")
             .getRequest()
 
     String response = new HttpClient().execute(request)

@@ -5,7 +5,6 @@ import com.stratio.rocket.flow.Stages
 
 @Field def name = Stages.VERIFY
 
-
 def executeStage() {
     log.info("Verify Stage started")
     execute()
@@ -14,6 +13,7 @@ def executeStage() {
 
 def execute() {
     log.info("Verify Stages execute")
+    sleep 15
 }
 
 return this

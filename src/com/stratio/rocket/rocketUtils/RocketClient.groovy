@@ -3,6 +3,7 @@ package com.stratio.rocket.rocketUtils
 import com.stratio.rocket.http.HttpClient
 import com.stratio.rocket.http.HttpRequest
 import groovy.transform.Field
+import groovy.json.JsonOutput
 
 @Field def instance = [:]
 @Field def isActive = false
@@ -106,7 +107,7 @@ def String getWorkflow() {
 }
 
 def String importWorkflow(String workflow, String groupId, String projectId, String name, String description) {
-    String body = "{\"content\":\"${workflow}\",\"assetType\":\"Workflow\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"name\":\"${name}\",\"description\":\"${description}\"}"
+    String body = "{\"content\":\"${JsonOutput.toJson(workflow)}\",\"assetType\":\"Workflow\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"name\":\"${name}\",\"description\":\"${description}\"}"
 
     String request = new HttpRequest()
             .post()

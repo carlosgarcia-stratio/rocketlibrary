@@ -29,6 +29,7 @@ def String getWorkflowRelease(String releaseId) {
 
 def String addWorkflowReleaseInfo(String releaseId, String key, String message) {
 
+    println(releaseId)
     String body = "{\"releaseId\":\"${releaseId}\",\"info\":{\"${key}\":\"${message}\"}}"
 
     String request = new HttpRequest()

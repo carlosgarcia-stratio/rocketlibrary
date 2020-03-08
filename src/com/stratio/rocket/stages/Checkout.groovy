@@ -17,7 +17,7 @@ def execute() {
     def jsonWorkflow = readJSON text: workflow
     context.props["workflow"] = workflow
     folders = jsonWorkflow["group"]["name"].split("/")
-    println(folders)
+    println(folders.toString())
 
 
     sleep 15

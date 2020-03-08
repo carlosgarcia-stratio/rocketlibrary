@@ -10,16 +10,22 @@ import com.stratio.rocket.rocketUtils.RocketClient
 
 def initInstances() {
 
-    if (env[RocketConstants.ROCKET_API_URL_DEV]) {
-        dev.initialize(env[RocketConstants.ROCKET_API_URL_DEV], "")
+    def dev_url = getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_DEV)
+    if (dev_url) {
+        dev.initialize(dev_url, "")
     }
 
-    if (env[RocketConstants.ROCKET_API_URL_PRE]) {
-        pre.initialize(env[RocketConstants.ROCKET_API_URL_PRE], "")
+    def pre_url = getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_PRE)
+    if (pre_url) {
+        pre.initialize(pre_url, "")
     }
 
-    if (env[RocketConstants.ROCKET_API_URL_PRO]) {
-        pro.initialize(env[RocketConstants.ROCKET_API_URL_PRO], "")
+    def pro_url = getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_PRO)
+    if (pro_url) {
+        pro.initialize(pro_url, "")
     }
 }
 
+def getFromPropsOrEnv(String key){
+    return context.props.containsKey(key) ?: (env.containsKey[key] ?: null)
+}

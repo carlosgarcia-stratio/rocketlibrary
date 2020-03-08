@@ -13,6 +13,8 @@ def executeStage() {
 
 def execute() {
     log.info("Checkout Stages execute")
+    def workflow = rocket.dev.getWorkflow(context.props["workflowId"])
+    context.props["workflow"] = workflow
     sleep 15
 }
 

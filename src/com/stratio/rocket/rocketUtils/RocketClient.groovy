@@ -30,7 +30,7 @@ def String getWorkflowRelease(String releaseId) {
 
 def String addWorkflowReleaseStage(String name, String state, String message) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"name\":${name},\"state\":${state},\"message\":${message}}"
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"name\":\"${name}\",\"state\":${state},\"message\":${message}}"
 
     String request = new HttpRequest()
             .post()
@@ -62,7 +62,7 @@ def String addWorkflowReleaseInfo(String key, String message) {
 
 def String updateWorkflowReleaseExecutionState(String state) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"executionState\":${state}}"
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"executionState\":\"${state}\"}"
 
     String request = new HttpRequest()
             .post()
@@ -78,7 +78,7 @@ def String updateWorkflowReleaseExecutionState(String state) {
 
 def String updateWorkflowReleaseWorkflowState(String state) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"workflowState\":${state}}"
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"workflowState\":\"${state}\"}"
 
     String request = new HttpRequest()
             .post()

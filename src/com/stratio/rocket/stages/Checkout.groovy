@@ -13,7 +13,8 @@ def executeStage() {
 
 def execute() {
     log.info("Checkout Stages execute")
-    rocket.dev.addWorkflowReleaseInfo(context.props["releaseId"], "jenkins", "firstMessage")
+    def response = rocket.dev.addWorkflowReleaseInfo(context.props["releaseId"], "jenkins", "firstMessage")
+    println(response)
 }
 
 return this

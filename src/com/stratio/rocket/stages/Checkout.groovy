@@ -16,6 +16,7 @@ def execute() {
     def workflow = rocket.dev.getWorkflow()
     def jsonWorkflow = readJSON text: workflow
     context.props["workflow"] = workflow
+    context.props["projectId"] = jsonWorkflow["projectId"]
     // TODO: Refactor to do it in bash
     def project = rocket.dev.getProject()
     println(project)

@@ -111,7 +111,7 @@ def String getProject() {
     String request = new HttpRequest()
             .get()
             .insecure()
-            .withUrl("${instance['url']}/workflows/findById/${context.props["projectId"]}")
+            .withUrl("${instance['url']}/projects/findById/${context.props["projectId"]}")
             .getRequest()
 
     String response = new HttpClient().execute(request)

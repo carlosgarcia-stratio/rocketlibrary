@@ -30,7 +30,7 @@ def String getWorkflowRelease(String releaseId) {
 
 def String addWorkflowReleaseStage(String name, String state, String message) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"name\":\"${name}\",\"state\":${state},\"message\":${message}}"
+    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"name\":\"${name}\",\"state\":\"${state}\",\"message\":\"${message}\"}"
 
     String request = new HttpRequest()
             .post()

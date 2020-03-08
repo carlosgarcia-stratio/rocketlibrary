@@ -105,6 +105,21 @@ def String getWorkflow() {
     return response
 }
 
+def String importWorkflow(String workflow, String groupId, String projectId, String name, String description) {
+    String body = "{\"content\":\"${workflow}\",\"assetType\":\"Workflow\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"name\":\"${name}\",\"description\":\"${description}\"}"
+
+    String request = new HttpRequest()
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .withUrl("${instance['url']}/assets/import")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
 // Project & Folders
 
 def String getProject() {

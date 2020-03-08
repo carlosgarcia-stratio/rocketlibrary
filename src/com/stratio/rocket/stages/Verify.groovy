@@ -13,7 +13,7 @@ def executeStage() {
 
 def execute() {
     log.info("Verify Stages execute")
-    sleep 5
+    sleep 1
 }
 
 return this

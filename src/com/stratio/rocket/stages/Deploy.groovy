@@ -19,7 +19,7 @@ def execute() {
 
     String workflow = rocket.pro.importWorkflow(context.props["workflow"], projectJson["groupId"], projectJson["id"], context.props["workflowName"], context.props["workflowDescription"])
     println(workflow)
-    sleep 5
+    sleep 1
 }
 
 return this

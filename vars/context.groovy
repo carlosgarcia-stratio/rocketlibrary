@@ -2,7 +2,7 @@
 
 import groovy.transform.Field
 
-@Field def props = [:]
+@Field def static props = [:]
 
 def init(Map p) {
     p.each { key, value ->

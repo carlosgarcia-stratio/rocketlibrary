@@ -27,5 +27,5 @@ def initInstances() {
 }
 
 def getFromPropsOrEnv(String key){
-    return context.props.containsKey(key) ? context.props[key]  : (env.containsKey(key) ? env[key] : null)
+    return context.props.containsKey(key) ? context.props[key]  : (env[key] ? env[key] : null)
 }

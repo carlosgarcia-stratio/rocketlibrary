@@ -16,9 +16,11 @@ def execute() {
     def workflow = rocket.dev.getWorkflow(context.props["workflowId"])
     def jsonWorkflow = readJSON text: workflow
     context.props["workflow"] = workflow
-    println(jsonWorkflow["group"]["name"])
+    folders = jsonWorkflow["group"]["name"].split("/").remove("home")
+    println(folders)
+
+
     sleep 15
 }
-
 
 return this

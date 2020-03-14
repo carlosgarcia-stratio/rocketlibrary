@@ -5,7 +5,6 @@ import com.stratio.rocket.flow.Stages
 
 @Field def name = Stages.DEPLOY
 
-
 def executeStage() {
     log.info("Deploy Stage started")
     execute()

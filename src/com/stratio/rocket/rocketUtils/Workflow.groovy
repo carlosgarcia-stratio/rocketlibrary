@@ -5,13 +5,13 @@ import groovy.json.JsonOutput
 class Workflow implements Serializable {
 
     String wfString;
-    String wfJson;
+    Map wfJson;
     String releaseId;
 
-    def init(String wf, String releaseId) {
+    def init(String wf, Map wfJson, String releaseId) {
         this.wfString = wf
+        this.wfJson = wfJson
         this.releaseId = releaseId
-        this.wfJson = readJSON text: wf
     }
 
 

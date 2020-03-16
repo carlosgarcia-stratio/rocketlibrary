@@ -3,11 +3,11 @@ package com.stratio.rocket.rocketUtils
 class Project implements Serializable {
 
     String projectString;
-    String projectJson;
+    Map projectJson;
 
-    def init(String project) {
+    def init(String project, Map projectJson) {
         this.projectString = project
-        this.projectJson = readJSON text: project
+        this.projectJson = projectJson
     }
 
     String getId() {

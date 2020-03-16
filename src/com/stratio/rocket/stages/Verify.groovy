@@ -21,7 +21,7 @@ def execute() {
     //Validate workflow (get context from last execution)
     rocket.dev.api.validateWorkflow(rocket.dev.workflow.getId(), rocket.dev.workflow.getName(), rocket.dev.workflow.getDescription(),
             rocket.dev.workflow.getSettings(true), rocket.dev.workflow.getPipelineGraph(true), rocket.dev.workflow.getExecutionEngine(),
-            rocket.dev.workflow.getWorkflowType(), rocket.dev.workflow.getVersion(), rocket.dev.workflow.getGroup(), rocket.dev.workflow.getTags(),
+            rocket.dev.workflow.getWorkflowType(), rocket.dev.workflow.getVersion(), rocket.dev.workflow.getGroup(true), rocket.dev.workflow.getTags(),
             rocket.dev.workflow.getWorkflowMasterId(), rocket.dev.workflow.getProjectId())
 
 }

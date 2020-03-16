@@ -63,8 +63,8 @@ class Workflow implements Serializable {
         return wfJson["version"].toLong()
     }
 
-    String getGroup() {
-        return wfJson["group"].toString()
+    String getGroup(Boolean escaped = false) {
+        return escaped ? JsonOutput.toJson(wfJson["group"].toString()) : wfJson["group"].toString()
     }
 
     String getTags() {

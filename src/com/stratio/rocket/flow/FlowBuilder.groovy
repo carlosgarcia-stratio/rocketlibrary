@@ -18,9 +18,9 @@ def String selectFlowType() {
 
     def flow = Flows.FLOW_KEY_EMPTY
 
-    if(rocket.dev.isActive && rocket.pre.isActive && rocket.pro.isActive) {
+    if(rocket.api.dev.isActive && rocket.pre.api.isActive && rocket.pro.api.isActive) {
         flow = Flows.FLOW_KEY_DEV_PRE_PRO
-    } else if(rocket.dev.isActive && rocket.pro.isActive) {
+    } else if(rocket.dev.api.isActive && rocket.pro.api.isActive) {
         flow = Flows.FLOW_KEY_DEV_PRO
     } else {
         log.error("No flow found for active instances")

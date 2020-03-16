@@ -5,7 +5,7 @@ class Project implements Serializable {
     String projectString;
     Map projectJson;
 
-    def init(String project, Map projectJson) {
+    void init(String project, Map projectJson) {
         this.projectString = project
         this.projectJson = projectJson
     }

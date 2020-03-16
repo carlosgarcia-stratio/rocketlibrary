@@ -8,7 +8,7 @@ class Workflow implements Serializable {
     Map wfJson;
     String releaseId;
 
-    def init(String wf, Map wfJson, String releaseId) {
+    void init(String wf, Map wfJson, String releaseId) {
         this.wfString = wf
         this.wfJson = wfJson
         this.releaseId = releaseId
@@ -41,6 +41,38 @@ class Workflow implements Serializable {
 
     String getAsEscapedJson(){
         return JsonOutput.toJson(this.wfString)
+    }
+
+    String getSettings() {
+        return wfJson["settings"].toString()
+    }
+
+    String getPipelineGraph() {
+        return wfJson["pipelineGraph"].toString()
+    }
+
+    String getExecutionEngine() {
+        return wfJson["executionEngine"]
+    }
+
+    String getWorkflowType() {
+        return wfJson["workflowType"]
+    }
+
+    Long getVersion() {
+        return wfJson["version"].toLong()
+    }
+
+    String getGroup() {
+        return wfJson["group"].toString()
+    }
+
+    String getTags() {
+        return wfJson["tags"].toString()
+    }
+
+    String getWorkflowMasterId() {
+        return wfJson["workflowMasterId"]
     }
 
 }

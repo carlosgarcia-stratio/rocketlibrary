@@ -16,7 +16,7 @@ def initialize(String url, String cookieCredentials) {
 
 // Releases
 
-def String getWorkflowRelease(String releaseId) {
+def getWorkflowRelease(String releaseId) {
 
     String request = new HttpRequest()
                         .get()
@@ -28,7 +28,7 @@ def String getWorkflowRelease(String releaseId) {
     return response
 }
 
-def String addWorkflowReleaseStage(String releaseId, String name, String state, String message) {
+def addWorkflowReleaseStage(String releaseId, String name, String state, String message) {
 
     String body = "{\"releaseId\":\"${releaseId}\",\"name\":\"${name}\",\"state\":\"${state}\",\"message\":\"${message}\"}"
 
@@ -44,7 +44,7 @@ def String addWorkflowReleaseStage(String releaseId, String name, String state, 
     return response
 }
 
-def String addWorkflowReleaseInfo(String releaseId, String key, String message) {
+def addWorkflowReleaseInfo(String releaseId, String key, String message) {
 
     String body = "{\"releaseId\":\"${releaseId}\",\"info\":{\"${key}\":\"${message}\"}}"
 
@@ -60,7 +60,7 @@ def String addWorkflowReleaseInfo(String releaseId, String key, String message) 
     return response
 }
 
-def String updateWorkflowReleaseExecutionState(String releaseId, String state) {
+def updateWorkflowReleaseExecutionState(String releaseId, String state) {
 
     String body = "{\"releaseId\":\"${releaseId}\",\"executionState\":\"${state}\"}"
 
@@ -76,7 +76,7 @@ def String updateWorkflowReleaseExecutionState(String releaseId, String state) {
     return response
 }
 
-def String updateWorkflowReleaseWorkflowState(String releaseId, String state) {
+def updateWorkflowReleaseWorkflowState(String releaseId, String state) {
 
     String body = "{\"releaseId\":\"${releaseId}\",\"workflowState\":\"${state}\"}"
 
@@ -94,7 +94,7 @@ def String updateWorkflowReleaseWorkflowState(String releaseId, String state) {
 
 // Workflows
 
-def String getWorkflow(String workflowId) {
+def getWorkflow(String workflowId) {
     String request = new HttpRequest()
             .get()
             .insecure()
@@ -105,8 +105,27 @@ def String getWorkflow(String workflowId) {
     return response
 }
 
-def String importWorkflow(String workflow, String groupId, String projectId, String name, String description) {
+def importWorkflow(String workflow, String groupId, String projectId, String name, String description) {
     String body = "{\"content\":${workflow},\"assetType\":\"Workflow\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"name\":\"${name}\",\"description\":\"${description}\"}"
+    String request = new HttpRequest()
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .withUrl("${instance['url']}/assets/import")
+            .getRequest()
+
+    String response = new HttpClient().execute(request)
+    return response
+}
+
+def validateWorkflow(String id, String name, String description, String settings, String pipelineGraph, String executionEngine,
+                     String workflowType, Long version, String group, String tags, String workflowMasterId, String projectId) {
+    String body = """{"id":"${id}","name":"${name}","description":"${description}","settings":"${settings}","pipelineGraph":"${pipelineGraph}",
+                      "executionEngine":"${executionEngine}","workflowType":"${workflowType}","version":${version},
+                      "group":"${group}","tags":"${tags}","workflowMasterId":"${workflowMasterId}","projectId":"${projectId}"}"""
+
+    println(body)
     String request = new HttpRequest()
             .post()
             .withHeader("Content-Type:application/json")
@@ -121,7 +140,7 @@ def String importWorkflow(String workflow, String groupId, String projectId, Str
 
 // Project & Folders
 
-def String getProject(String projectId) {
+def getProject(String projectId) {
     String request = new HttpRequest()
             .get()
             .insecure()
@@ -132,7 +151,7 @@ def String getProject(String projectId) {
     return response
 }
 
-def String createProject(String name, String description) {
+def createProject(String name, String description) {
     String body = "{\"name\":\"${name}\",\"description\":\"${description}\"}"
 
     String request = new HttpRequest()

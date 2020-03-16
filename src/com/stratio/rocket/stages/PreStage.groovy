@@ -4,5 +4,5 @@ import com.stratio.rocket.rocketUtils.RocketConstants
 
 def executeStage(s) {
 
-    rocket.dev.addWorkflowReleaseStage(s.name, RocketConstants.STAGE_STARTED, "Stage ${s.name} started...")
+    rocket.dev.addWorkflowReleaseStage(context.props["releaseId"], s.name, RocketConstants.STAGE_STARTED, "Stage ${s.name} started...")
 }

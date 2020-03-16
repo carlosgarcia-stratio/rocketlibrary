@@ -131,7 +131,7 @@ def validateWorkflow(String id, String name, String description, String settings
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
-            .withUrl("${instance['url']}/assets/import")
+            .withUrl("${instance['url']}/workflows/validateWithoutExecutionContext")
             .getRequest()
 
     String response = new HttpClient().execute(request)

@@ -121,7 +121,7 @@ def importWorkflow(String workflow, String groupId, String projectId, String nam
 
 def validateWorkflow(String id, String name, String description, String settings, String pipelineGraph, String executionEngine,
                      String workflowType, Long version, String group, String tags, String workflowMasterId, String projectId) {
-    String body = """{"id":"${id}","name":"${name}","description":"${description}","settings":"${settings}","pipelineGraph":"${pipelineGraph}",
+    String body = """{"id":"${id}","name":"${name}","description":"${description}","settings":${settings},"pipelineGraph":${pipelineGraph},
 "executionEngine":"${executionEngine}","workflowType":"${workflowType}","version":${version},"group":"${group}","tags":"${tags}",
 "workflowMasterId":"${workflowMasterId}","projectId":"${projectId}"}"""
 

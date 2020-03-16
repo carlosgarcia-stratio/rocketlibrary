@@ -13,12 +13,14 @@ def executeStage() {
 
 def execute() {
     log.info("Deploy Stage execute")
-    String project = rocket.pro.createProject(context.props["projectName"], "")
-    def projectJson = readJSON text: project
-
-    String workflow = rocket.pro.importWorkflow(context.props["workflow"], projectJson["groupId"], projectJson["id"], context.props["workflowName"], context.props["workflowDescription"])
+    String project = rocket.pro.createProject(context.project.getName(), context.project.getDescription())
+    println(project)
+    String workflow = rocket.pro.importWorkflow(context.workflow.getAsEscapedJson(),
+            context.project.getGroupId(),
+            context.project.getId(),
+            context.workflow.getName(),
+            context.workflow.getDescription())
     println(workflow)
-    sleep 1
 }
 
 return this

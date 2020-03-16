@@ -3,7 +3,6 @@ package com.stratio.rocket.rocketUtils
 import com.stratio.rocket.http.HttpClient
 import com.stratio.rocket.http.HttpRequest
 import groovy.transform.Field
-import groovy.json.JsonOutput
 
 @Field def instance = [:]
 @Field def isActive = false
@@ -17,21 +16,21 @@ def initialize(String url, String cookieCredentials) {
 
 // Releases
 
-def String getWorkflowRelease() {
+def String getWorkflowRelease(String releaseId) {
 
     String request = new HttpRequest()
                         .get()
                         .insecure()
-                        .withUrl("${instance['url']}/release/workflow/findById/${context.props["releaseId"]}")
+                        .withUrl("${instance['url']}/release/workflow/findById/${releaseId}")
                         .getRequest()
 
     String response = new HttpClient().execute(request)
     return response
 }
 
-def String addWorkflowReleaseStage(String name, String state, String message) {
+def String addWorkflowReleaseStage(String releaseId, String name, String state, String message) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"name\":\"${name}\",\"state\":\"${state}\",\"message\":\"${message}\"}"
+    String body = "{\"releaseId\":\"${releaseId}\",\"name\":\"${name}\",\"state\":\"${state}\",\"message\":\"${message}\"}"
 
     String request = new HttpRequest()
             .post()
@@ -45,9 +44,9 @@ def String addWorkflowReleaseStage(String name, String state, String message) {
     return response
 }
 
-def String addWorkflowReleaseInfo(String key, String message) {
+def String addWorkflowReleaseInfo(String releaseId, String key, String message) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"info\":{\"${key}\":\"${message}\"}}"
+    String body = "{\"releaseId\":\"${releaseId}\",\"info\":{\"${key}\":\"${message}\"}}"
 
     String request = new HttpRequest()
             .post()
@@ -61,9 +60,9 @@ def String addWorkflowReleaseInfo(String key, String message) {
     return response
 }
 
-def String updateWorkflowReleaseExecutionState(String state) {
+def String updateWorkflowReleaseExecutionState(String releaseId, String state) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"executionState\":\"${state}\"}"
+    String body = "{\"releaseId\":\"${releaseId}\",\"executionState\":\"${state}\"}"
 
     String request = new HttpRequest()
             .post()
@@ -77,9 +76,9 @@ def String updateWorkflowReleaseExecutionState(String state) {
     return response
 }
 
-def String updateWorkflowReleaseWorkflowState(String state) {
+def String updateWorkflowReleaseWorkflowState(String releaseId, String state) {
 
-    String body = "{\"releaseId\":\"${context.props["releaseId"]}\",\"workflowState\":\"${state}\"}"
+    String body = "{\"releaseId\":\"${releaseId}\",\"workflowState\":\"${state}\"}"
 
     String request = new HttpRequest()
             .post()
@@ -95,11 +94,11 @@ def String updateWorkflowReleaseWorkflowState(String state) {
 
 // Workflows
 
-def String getWorkflow() {
+def String getWorkflow(String workflowId) {
     String request = new HttpRequest()
             .get()
             .insecure()
-            .withUrl("${instance['url']}/workflows/findById/${context.props["workflowId"]}")
+            .withUrl("${instance['url']}/workflows/findById/${workflowId}")
             .getRequest()
 
     String response = new HttpClient().execute(request)
@@ -107,8 +106,7 @@ def String getWorkflow() {
 }
 
 def String importWorkflow(String workflow, String groupId, String projectId, String name, String description) {
-    String body = "{\"content\":${JsonOutput.toJson(workflow)},\"assetType\":\"Workflow\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"name\":\"${name}\",\"description\":\"${description}\"}"
-
+    String body = "{\"content\":${workflow},\"assetType\":\"Workflow\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"name\":\"${name}\",\"description\":\"${description}\"}"
     String request = new HttpRequest()
             .post()
             .withHeader("Content-Type:application/json")
@@ -123,11 +121,11 @@ def String importWorkflow(String workflow, String groupId, String projectId, Str
 
 // Project & Folders
 
-def String getProject() {
+def String getProject(String projectId) {
     String request = new HttpRequest()
             .get()
             .insecure()
-            .withUrl("${instance['url']}/projects/findById/${context.props["projectId"]}")
+            .withUrl("${instance['url']}/projects/findById/${projectId}")
             .getRequest()
 
     String response = new HttpClient().execute(request)

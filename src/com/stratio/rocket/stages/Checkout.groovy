@@ -13,19 +13,11 @@ def executeStage() {
 
 def execute() {
     log.info("Checkout Stages execute")
-    def workflow = rocket.dev.getWorkflow()
-    def jsonWorkflow = readJSON text: workflow
-    context.props["workflow"] = workflow
-    context.props["projectId"] = jsonWorkflow["projectId"]
-    context.props["workflowName"] = jsonWorkflow["name"]
-    context.props["workflowDescription"] = jsonWorkflow["description"]
-    // TODO: Refactor to do it in bash
-    def project = rocket.dev.getProject()
-    println(project)
-    def jsonProject = readJSON text: project
-    def folders = jsonWorkflow["group"]["name"].split("/").findAll{ !(it == '' || it == 'home' || it == jsonProject["name"]) }
-    context.props["projectName"] = jsonProject["name"]
-    context.props["folders"] = folders
+    def workflow = rocket.dev.getWorkflow(context.props["workflowId"])
+    context.workflow.init(workflow, context.props["releaseId"])
+    def project = rocket.dev.getProject(context.workflow.getProjectId())
+    context.project.init(project)
+    //def folders = jsonWorkflow["group"]["name"].split("/").findAll{ !(it == '' || it == 'home' || it == jsonProject["name"]) }
     sleep 1
 }
 

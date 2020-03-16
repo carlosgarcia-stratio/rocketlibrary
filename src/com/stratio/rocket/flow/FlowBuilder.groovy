@@ -18,7 +18,7 @@ def String selectFlowType() {
 
     def flow = Flows.FLOW_KEY_EMPTY
 
-    if(rocket.api.dev.isActive && rocket.pre.api.isActive && rocket.pro.api.isActive) {
+    if(rocket.dev.api.isActive && rocket.pre.api.isActive && rocket.pro.api.isActive) {
         flow = Flows.FLOW_KEY_DEV_PRE_PRO
     } else if(rocket.dev.api.isActive && rocket.pro.api.isActive) {
         flow = Flows.FLOW_KEY_DEV_PRO

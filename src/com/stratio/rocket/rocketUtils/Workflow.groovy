@@ -43,12 +43,12 @@ class Workflow implements Serializable {
         return JsonOutput.toJson(this.wfString)
     }
 
-    String getSettings() {
-        return wfJson["settings"].toString()
+    String getSettings(Boolean escaped = false) {
+        return escaped ? JsonOutput.toJson(wfJson["settings"].toString() : wfJson["settings"].toString()
     }
 
-    String getPipelineGraph() {
-        return wfJson["pipelineGraph"].toString()
+    String getPipelineGraph(Bolean escaped = false) {
+        return escaped ? JsonOutput.toJson(wfJson["pipelineGraph"].toString()) : wfJson["pipelineGraph"].toString()
     }
 
     String getExecutionEngine() {

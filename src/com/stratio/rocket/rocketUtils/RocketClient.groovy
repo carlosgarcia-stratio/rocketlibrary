@@ -135,6 +135,7 @@ def validateWorkflow(String id, String name, String description, String settings
             .getRequest()
 
     String response = new HttpClient().execute(request)
+    println(response)
     return response
 }
 

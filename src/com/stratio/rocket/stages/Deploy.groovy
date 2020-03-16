@@ -13,9 +13,9 @@ def executeStage() {
 
 def execute() {
     log.info("Deploy Stage execute")
-    String project = rocket.pro.createProject(context.project.getName(), context.project.getDescription())
+    String project = rocket.pro.api.createProject(context.project.getName(), context.project.getDescription())
     println(project)
-    String workflow = rocket.pro.importWorkflow(context.workflow.getAsEscapedJson(),
+    String workflow = rocket.pro.api.importWorkflow(context.workflow.getAsEscapedJson(),
             context.project.getGroupId(),
             context.project.getId(),
             context.workflow.getName(),

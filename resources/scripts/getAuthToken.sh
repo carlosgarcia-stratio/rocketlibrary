@@ -101,7 +101,7 @@ HTTP_STATUS_CODE=$(echo $AUTHORIZE_RESPONSE \
 
 if [ $HTTP_STATUS_CODE -ne 200 ]
 then
-  return 1
+  exit 1
 fi
 
 JSESSIONID=$(filter_jsessionid_cookie "$EFFECTIVE_URL")

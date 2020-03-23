@@ -11,9 +11,7 @@ import com.stratio.rocket.rocketUtils.Project
 
 def createProjectIfNotExist(String projectName) {
 
-    try {
-        api.findProjectByName(rocket.dev.project.getName())
-    } catch {}
+   api.findProjectByName(rocket.dev.project.getName())
 
 }
 

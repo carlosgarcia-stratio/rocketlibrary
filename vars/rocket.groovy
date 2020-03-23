@@ -57,7 +57,7 @@ def getFromPropsOrEnv(String key, String defaultValue = null) {
 def getAuth(Map props) {
     if (props.authMethod == RocketConstants.ROCKET_AUTH_USER_PASS) {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "${props.credentialsId}", usernameVariable: 'USER', passwordVariable: 'PASS']]) {
-            def exists = fileExist RocketConstants.AUTH_TOKEN_TEMP_PATH
+            def exists = fileExists RocketConstants.AUTH_TOKEN_TEMP_PATH
             if(!exists) {
                 def authScript = libraryResource RocketConstants.AUTH_TOKEN_RESOURCE_PATH
                 writeFile file: RocketConstants.AUTH_TOKEN_TEMP_PATH, text: authScript

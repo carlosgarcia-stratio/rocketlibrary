@@ -33,6 +33,7 @@ def initInstances() {
                          tenant: pre_tenant
                         ]
         def auth = getAuth(authProps)
+        println(auth)
         pre.api.initialize(pre_url, auth)
     }
 

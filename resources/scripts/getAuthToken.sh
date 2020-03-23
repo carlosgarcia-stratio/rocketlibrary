@@ -109,8 +109,8 @@ LT=$(filter_lt_value "$AUTHORIZE_RESPONSE")
 
 LOGIN_SERVICE=$(curl -X POST $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})' -H "Cookie: JSESSIONID=$JSESSIONID" --data "lt=$LT&execution=$EXECUTION&_eventId=submit&username=$USERLOGIN&password=$PASSWD&tenant=$TENANT")
 AUTHORIZE_URL=$(filter_location_value "$LOGIN_SERVICE")
-AUTHORIZE_URL_RESPONSE=$(curl -X GET "$AUTHORIZE_URL" -H "Cookie: JSESSIONID=$JSESSIONID" -k -I --compressed)
+AUTHORIZE_URL_RESPONSE=$(curl -X GET "$AUTHORIZE_URL" -H "Cookie: JSESSIONID=$JSESSIONID" -k -s -I --compressed)
 TICKET_URL=$(filter_location_value "$AUTHORIZE_URL_RESPONSE")
-TICKET_URL_RESPONSE=$(curl -X GET "$TICKET_URL" -k -I --compressed)
+TICKET_URL_RESPONSE=$(curl -X GET "$TICKET_URL" -k -s -I --compressed)
 
 echo $USER > $TICKET_FILE

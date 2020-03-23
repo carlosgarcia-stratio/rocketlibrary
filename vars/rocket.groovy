@@ -21,7 +21,6 @@ def initInstances() {
                          tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH_DEV
                         ]
         def auth = getAuth(authProps)
-        log.info auth
         dev.api.initialize(dev_url, auth)
     }
 
@@ -68,7 +67,7 @@ def getAuth(Map props) {
             }
             sh(script: "bash ${RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath}")
             def token = sh(script: "cat ${props.tokenPath}", returnStdout: true).trim()
-            return " -H 'Cookie: user=${token}'"
+            return "-H 'Cookie: user=${token}'"
         }
     } else if(props.authMethod == RocketConstants.ROCKET_AUTH_MUTUAL_TLS) {
         log.error "Auth Method not implemented yet"

@@ -84,12 +84,6 @@ ROCKET_LOGIN_URI=$(echo $EFFECTIVE_URL \
                 | grep -oE 'https?://[^ ]+' \
                 | head -n 1)
 
-if [ $ROCKET_UI_URI == $ROCKET_LOGIN_URI ]
-then
-  echo "[ERROR] Could not retrieve a valid sso login url: $ROCKET_LOGIN_URI"
-  exit 1
-fi
-
 echo "[INFO] Retrieved Sso Login Url: $ROCKET_LOGIN_URI"
 
 AUTHORIZE_RESPONSE=$(curl -X GET $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})')

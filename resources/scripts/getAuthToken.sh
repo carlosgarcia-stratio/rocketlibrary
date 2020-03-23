@@ -72,9 +72,9 @@ then
   USERLOGIN=$2
   PASSWD=$3
   TENANT=$4
-  TICKET_FILE = $5
+  TICKET_FILE=$5
 else
-  echo "[ERROR] Script takes exactly 4 parameters: ROCKET_UI_URI, User_id, Password, Tenant and FilePath"
+  echo "[ERROR] Script takes exactly 5 parameters: ROCKET_UI_URI, User_id, Password, Tenant and FilePath"
   exit 1
 fi
 
@@ -137,5 +137,5 @@ TICKET_URL_RESPONSE=$(curl -X GET "$TICKET_URL" -k -I --compressed)
 echo "------------------------------------USER"
 USER=$(filter_user_value "$TICKET_URL_RESPONSE")
 echo $USER
-
-echo $USER_TICKET > $TICKET_FILE
+echo $TICKET_FILE
+echo $USER > $TICKET_FILE

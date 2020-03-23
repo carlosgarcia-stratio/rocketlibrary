@@ -91,8 +91,6 @@ then
   exit 1
 fi
 
-echo "[INFO] Retrieved Sso Login Url: $ROCKET_LOGIN_URI"
-
 AUTHORIZE_RESPONSE=$(curl -X GET $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})')
 
 HTTP_STATUS_CODE=$(echo $AUTHORIZE_RESPONSE \

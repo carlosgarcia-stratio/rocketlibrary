@@ -99,11 +99,6 @@ HTTP_STATUS_CODE=$(echo $AUTHORIZE_RESPONSE \
                 | grep -oE "[0-9]+" \
                 | head -n 1)
 
-if [ $HTTP_STATUS_CODE -ne 200 ]
-then
-  exit 1
-fi
-
 JSESSIONID=$(filter_jsessionid_cookie "$EFFECTIVE_URL")
 
 echo "------------------------------------JSESSIONID"

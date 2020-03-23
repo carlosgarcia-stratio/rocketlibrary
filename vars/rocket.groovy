@@ -66,7 +66,7 @@ def getAuth(Map props) {
                 def authScript = libraryResource RocketConstants.AUTH_TOKEN_RESOURCE_PATH
                 writeFile file: RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH, text: authScript
             }
-            def token = sh(script: "bash ${RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath}; cat ${props.tokenPath}", returnStdout: true)
+            def token = sh(script: "bash ${RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath} > /dev/null 2>&1; cat ${props.tokenPath}", returnStdout: true)
             return " -H Cookie: user=${token}"
         }
     } else if(props.authMethod == RocketConstants.ROCKET_AUTH_MUTUAL_TLS) {

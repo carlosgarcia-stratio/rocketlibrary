@@ -20,6 +20,7 @@ def initInstances() {
                          tenant: dev_tenant
                         ]
         def auth = getAuth(authProps)
+        log.info auth
         dev.api.initialize(dev_url, auth)
     }
 
@@ -33,7 +34,6 @@ def initInstances() {
                          tenant: pre_tenant
                         ]
         def auth = getAuth(authProps)
-        log.info auth
         pre.api.initialize(pre_url, auth)
     }
 

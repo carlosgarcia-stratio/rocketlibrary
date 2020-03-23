@@ -138,4 +138,4 @@ echo "------------------------------------USER"
 USER=$(filter_user_value "$TICKET_URL_RESPONSE")
 echo $USER
 
-echo $USER_TICKET > $5
+echo $USER_TICKET > $TICKET_FILE

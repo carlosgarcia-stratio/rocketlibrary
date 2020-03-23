@@ -37,6 +37,15 @@ function filter_ticket_value() {
     echo $RET_VALUE
 }
 
+function filter_location_value() {
+  RET_VALUE=$(echo $1 \
+        | grep -oE "Location: [^ ]+" \
+        | sed "s/Location: //g" \
+        | grep -oE "[^ ]+" \
+        | tr -d "\r")
+    echo $RET_VALUE
+}
+
 function filter_user_value() {
     RET_VALUE=$(echo $1 \
         | grep -oE "user=[a-z0-9\-]+" \
@@ -56,22 +65,34 @@ function filter_user_value() {
 #            a file located in $TICKET_FILE with the user ticket to access Tocket API
 
 # Find sso login url from Sparta UI redirection url
-EFFECTIVE_URL=$(curl -k -s -L $SPARTA_UI_URI -w 'url_effective=%{url_effective}')
-SPARTA_LOGIN_URI=$(echo $EFFECTIVE_URL \
+
+if [ $# -eq 4 ]
+then
+  ROCKET_UI_URI=$1
+  USERLOGIN=$2
+  PASSWD=$3
+  TENANT=$4
+else
+  echo "[ERROR] Script takes exactly 4 parameters: ROCKET_UI_URI, User_id, Password and Tenant"
+  exit 1
+fi
+
+
+EFFECTIVE_URL=$(curl -I -k -s -L $ROCKET_UI_URI -w 'url_effective=%{url_effective}')
+ROCKET_LOGIN_URI=$(echo $EFFECTIVE_URL \
                 | grep -oE 'url_effective=https?://[^ ]+' \
                 | grep -oE 'https?://[^ ]+' \
                 | head -n 1)
 
-if [ $SPARTA_UI_URI == $SPARTA_LOGIN_URI ]
+if [ $ROCKET_UI_URI == $ROCKET_LOGIN_URI ]
 then
-  echo "[ERROR] Could not retrieve a valid sso login url: $SPARTA_LOGIN_URI"
+  echo "[ERROR] Could not retrieve a valid sso login url: $ROCKET_LOGIN_URI"
   exit 1
 fi
 
-echo "[INFO] Retrieved Sso Login Url: $SPARTA_LOGIN_URI"
+echo "[INFO] Retrieved Sso Login Url: $ROCKET_LOGIN_URI"
 
-
-AUTHORIZE_RESPONSE=$(curl -X GET $SPARTA_LOGIN_URI -k  -i -s -w 'http_status=(%{http_code})')
+AUTHORIZE_RESPONSE=$(curl -X GET $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})')
 
 HTTP_STATUS_CODE=$(echo $AUTHORIZE_RESPONSE \
                 | grep -oE "http_status=\([0-9]+\)" \
@@ -83,18 +104,37 @@ then
   return 1
 fi
 
-JSESSIONID=$(filter_jsessionid_cookie "$AUTHORIZE_RESPONSE")
+JSESSIONID=$(filter_jsessionid_cookie "$EFFECTIVE_URL")
+
+echo "------------------------------------JSESSIONID"
+echo $JSESSIONID
 
 EXECUTION=$(filter_execution_value "$AUTHORIZE_RESPONSE")
 
+echo "------------------------------------EXECUTION"
+echo $EXECUTION
+
 LT=$(filter_lt_value "$AUTHORIZE_RESPONSE")
 
-TICKET_RESPONSE=$(curl -X POST $SPARTA_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})' -H "Cookie: JSESSIONID=$JSESSIONID" --data "lt=$LT&execution=$EXECUTION&_eventId=submit&username=$USERLOGIN&password=$PASSWD&tenant=$TENANT")
+echo "------------------------------------LT"
+echo $LT
 
-TICKET=$(filter_ticket_value "$TICKET_RESPONSE")
+LOGIN_SERVICE=$(curl -X POST $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})' -H "Cookie: JSESSIONID=$JSESSIONID" --data "lt=$LT&execution=$EXECUTION&_eventId=submit&username=$USERLOGIN&password=$PASSWD&tenant=$TENANT")
 
-LOGIN_RESPONSE=$(curl -X GET "$SPARTA_UI_URI/login?code=$TICKET" -k -i -s -w 'http_status=(%{http_code})' --compressed)
+AUTHORIZE_URL=$(filter_location_value "$LOGIN_SERVICE")
 
-USER_TICKET=$(filter_user_value "$LOGIN_RESPONSE")
+echo "------------------------------------LOGIN_SERVICE_RESPONSE"
+echo $LOGIN_SERVICE_RESPONSE
 
-echo $USER_TICKET > $TICKET_FILE
+AUTHORIZE_URL_RESPONSE=$(curl -X GET "$AUTHORIZE_URL" -H "Cookie: JSESSIONID=$JSESSIONID" -k -I --compressed)
+
+echo "------------------------------------TICKET_URL"
+TICKET_URL=$(filter_location_value "$AUTHORIZE_URL_RESPONSE")
+echo $TICKET_URL
+
+TICKET_URL_RESPONSE=$(curl -X GET "$TICKET_URL" -k -I --compressed)
+echo "------------------------------------USER"
+USER=$(filter_user_value "$TICKET_URL_RESPONSE")
+echo $USER
+
+echo $USER_TICKET

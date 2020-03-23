@@ -13,6 +13,10 @@ def executeStage() {
 
 def execute() {
     log.info("Deploy Stage execute")
+
+    //Create if project exist
+    String project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName())
+
     String project = rocket.pro.api.createProject(rocket.dev.project.getName(), rocket.dev.project.getDescription())
     println(project)
     String workflow = rocket.pro.api.importWorkflow(rocket.dev.workflow.getAsEscapedJson(),

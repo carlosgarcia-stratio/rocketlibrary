@@ -8,6 +8,12 @@ class HttpRequest implements Serializable {
         this.command = "curl"
     }
 
+    HttpRequest withAuth(String auth) {
+        if(auth != "") this.command += " " + auth
+        return this
+    }
+
+
     HttpRequest withUrl(String url) {
         this.command += " " + url
         return this
@@ -37,6 +43,11 @@ class HttpRequest implements Serializable {
         if(flag) {
             this.command += " -vvv "
         }
+        return this
+    }
+
+    HttpRequest withFail() {
+        this.command += " -f"
         return this
     }
 

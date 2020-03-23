@@ -9,4 +9,12 @@ import com.stratio.rocket.rocketUtils.Project
 @Field def workflow = new Workflow()
 @Field def project = new Project()
 
+def createProjectIfNotExist(String projectName) {
+
+    try {
+        api.findProjectByName(rocket.dev.project.getName())
+    } catch {}
+
+}
+
 return this

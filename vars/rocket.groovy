@@ -15,8 +15,9 @@ def initInstances() {
         def dev_auth_method = getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD_DEV, RocketConstants.ROCKET_AUTH_USER_PASS)
         def dev_tenant = getFromPropsOrEnv(RocketConstants.ROCKET_TENANT_DEV)
         def authProps = [authMethod: dev_auth_method,
-                        url: dev_url,
-                        tenant: dev_tenant
+                         url: dev_url,
+                         credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_DEV,
+                         tenant: dev_tenant
                         ]
         def auth = getAuth(authProps)
         dev.api.initialize(dev_url, auth)
@@ -28,6 +29,7 @@ def initInstances() {
         def pre_tenant = getFromPropsOrEnv(RocketConstants.ROCKET_TENANT_PRE)
         def authProps = [authMethod: pre_auth_method,
                          url: pre_url,
+                         credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_PRE,
                          tenant: pre_tenant
                         ]
         def auth = getAuth(authProps)
@@ -40,6 +42,7 @@ def initInstances() {
         def pro_tenant = getFromPropsOrEnv(RocketConstants.ROCKET_TENANT_PRO)
         def authProps = [authMethod: pro_auth_method,
                          url: pro_url,
+                         credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_PRO,
                          tenant: pro_tenant
                         ]
         def auth = getAuth(authProps)
@@ -53,7 +56,7 @@ def getFromPropsOrEnv(String key, String defaultValue = null) {
 
 def getAuth(Map props) {
     if (props.authMethod == RocketConstants.ROCKET_AUTH_USER_PASS) {
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "$credentialsId", usernameVariable: 'USER', passwordVariable: 'PASS']]) {
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "${props.credentialsId}", usernameVariable: 'USER', passwordVariable: 'PASS']]) {
             def exists = fileExist RocketConstants.AUTH_TOKEN_TEMP_PATH
             if(!exists) {
                 def authScript = libraryResource RocketConstants.AUTH_TOKEN_RESOURCE_PATH

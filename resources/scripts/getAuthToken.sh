@@ -84,6 +84,12 @@ ROCKET_LOGIN_URI=$(echo $EFFECTIVE_URL \
                 | grep -oE 'https?://[^ ]+' \
                 | head -n 1)
 
+if [ $ROCKET_UI_URI == $ROCKET_LOGIN_URI ]
+then
+  echo "[ERROR] Could not retrieve a valid sso login url: $ROCKET_LOGIN_URI"
+  exit 1
+fi
+
 echo "[INFO] Retrieved Sso Login Url: $ROCKET_LOGIN_URI"
 
 AUTHORIZE_RESPONSE=$(curl -X GET $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})')
@@ -92,6 +98,11 @@ HTTP_STATUS_CODE=$(echo $AUTHORIZE_RESPONSE \
                 | grep -oE "http_status=\([0-9]+\)" \
                 | grep -oE "[0-9]+" \
                 | head -n 1)
+
+if [ $HTTP_STATUS_CODE -ne 200 ]
+then
+  exit 1
+fi
 
 JSESSIONID=$(filter_jsessionid_cookie "$EFFECTIVE_URL")
 

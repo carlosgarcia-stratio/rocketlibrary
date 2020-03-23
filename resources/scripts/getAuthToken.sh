@@ -91,8 +91,6 @@ then
   exit 1
 fi
 
-echo "[INFO] Retrieved Sso Login Url: $ROCKET_LOGIN_URI"
-
 AUTHORIZE_RESPONSE=$(curl -X GET $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})')
 
 HTTP_STATUS_CODE=$(echo $AUTHORIZE_RESPONSE \
@@ -106,36 +104,13 @@ then
 fi
 
 JSESSIONID=$(filter_jsessionid_cookie "$EFFECTIVE_URL")
-
-echo "------------------------------------JSESSIONID"
-echo $JSESSIONID
-
 EXECUTION=$(filter_execution_value "$AUTHORIZE_RESPONSE")
-
-echo "------------------------------------EXECUTION"
-echo $EXECUTION
-
 LT=$(filter_lt_value "$AUTHORIZE_RESPONSE")
 
-echo "------------------------------------LT"
-echo $LT
-
 LOGIN_SERVICE=$(curl -X POST $ROCKET_LOGIN_URI -k -i -s -w 'http_status=(%{http_code})' -H "Cookie: JSESSIONID=$JSESSIONID" --data "lt=$LT&execution=$EXECUTION&_eventId=submit&username=$USERLOGIN&password=$PASSWD&tenant=$TENANT")
-
 AUTHORIZE_URL=$(filter_location_value "$LOGIN_SERVICE")
-
-echo "------------------------------------LOGIN_SERVICE_RESPONSE"
-echo $LOGIN_SERVICE_RESPONSE
-
 AUTHORIZE_URL_RESPONSE=$(curl -X GET "$AUTHORIZE_URL" -H "Cookie: JSESSIONID=$JSESSIONID" -k -I --compressed)
-
-echo "------------------------------------TICKET_URL"
 TICKET_URL=$(filter_location_value "$AUTHORIZE_URL_RESPONSE")
-echo $TICKET_URL
-
 TICKET_URL_RESPONSE=$(curl -X GET "$TICKET_URL" -k -I --compressed)
-echo "------------------------------------USER"
-USER=$(filter_user_value "$TICKET_URL_RESPONSE")
-echo $USER
-echo $TICKET_FILE
+
 echo $USER > $TICKET_FILE

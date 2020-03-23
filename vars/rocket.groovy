@@ -17,7 +17,8 @@ def initInstances() {
         def authProps = [authMethod: dev_auth_method,
                          url: dev_url,
                          credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_DEV,
-                         tenant: dev_tenant
+                         tenant: dev_tenant,
+                         tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH_DEV
                         ]
         def auth = getAuth(authProps)
         log.info auth
@@ -31,7 +32,8 @@ def initInstances() {
         def authProps = [authMethod: pre_auth_method,
                          url: pre_url,
                          credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_PRE,
-                         tenant: pre_tenant
+                         tenant: pre_tenant,
+                         tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH_PRO
                         ]
         def auth = getAuth(authProps)
         pre.api.initialize(pre_url, auth)
@@ -44,7 +46,8 @@ def initInstances() {
         def authProps = [authMethod: pro_auth_method,
                          url: pro_url,
                          credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_PRO,
-                         tenant: pro_tenant
+                         tenant: pro_tenant,
+                         tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH_PRO
                         ]
         def auth = getAuth(authProps)
         pro.api.initialize(pro_url, auth)
@@ -63,7 +66,7 @@ def getAuth(Map props) {
                 def authScript = libraryResource RocketConstants.AUTH_TOKEN_RESOURCE_PATH
                 writeFile file: RocketConstants.AUTH_TOKEN_TEMP_PATH, text: authScript
             }
-            def token = sh(script: "bash ${RocketConstants.AUTH_TOKEN_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant}", returnStdout: true)
+            def token = sh(script: "bash ${RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath}; cat ${props.tokenPath}", returnStdout: true)
             return " -H Cookie: user=${token}"
         }
     } else if(props.authMethod == RocketConstants.ROCKET_AUTH_MUTUAL_TLS) {

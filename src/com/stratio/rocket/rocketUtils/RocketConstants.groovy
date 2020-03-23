@@ -26,7 +26,10 @@ class RocketConstants implements Serializable {
     static String ROCKET_AUTH_NONE = "ROCKET_AUTH_NONE"
     static String ROCKET_AUTH_MUTUAL_TLS = "ROCKET_AUTH_MUTUAL_TLS"
 
-    static String AUTH_TOKEN_TEMP_PATH = "/tmp/getAuthToken.sh"
+    static String AUTH_TOKEN_TEMP_PATH_DEV = "token_dev"
+    static String AUTH_TOKEN_TEMP_PATH_PRE = "token_pre"
+    static String AUTH_TOKEN_TEMP_PATH_PRO = "token_pro"
+    static String AUTH_TOKEN_SCRIPT_TEMP_PATH = "/tmp/getAuthToken.sh"
     static String AUTH_TOKEN_RESOURCE_PATH = "scripts/getAuthToken.sh"
 
     static String STAGE_STARTED = "WfReleaseStageStarted"

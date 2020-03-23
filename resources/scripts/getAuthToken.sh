@@ -66,14 +66,15 @@ function filter_user_value() {
 
 # Find sso login url from Sparta UI redirection url
 
-if [ $# -eq 4 ]
+if [ $# -eq 5 ]
 then
   ROCKET_UI_URI=$1
   USERLOGIN=$2
   PASSWD=$3
   TENANT=$4
+  TICKET_FILE = $5
 else
-  echo "[ERROR] Script takes exactly 4 parameters: ROCKET_UI_URI, User_id, Password and Tenant"
+  echo "[ERROR] Script takes exactly 4 parameters: ROCKET_UI_URI, User_id, Password, Tenant and FilePath"
   exit 1
 fi
 
@@ -137,4 +138,4 @@ echo "------------------------------------USER"
 USER=$(filter_user_value "$TICKET_URL_RESPONSE")
 echo $USER
 
-echo $USER_TICKET
+echo $USER_TICKET > $5

@@ -11,7 +11,7 @@ import com.stratio.rocket.rocketUtils.Project
 @Field def project = new Project()
 @Field def http = new HttpClient()
 
-String getWorkflow(String workflowId) {
+def getWorkflow(String workflowId) {
    def request = api.getWorkflow(workflowId)
    def response = http.executeWithOutput(request)
    return response

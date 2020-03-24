@@ -15,6 +15,8 @@ import com.stratio.rocket.rocketUtils.Release
 @Field def http = new HttpClient()
 @Field def isActive = false
 
+
+
 def getWorkflow(String workflowId) {
    def request = api.getWorkflow(workflowId)
    def response = http.executeWithOutput(request)
@@ -25,6 +27,11 @@ def getProject(String projectId) {
    def request = api.getProject(projectId)
    def response = http.executeWithOutput(request)
    return response
+}
+
+def updateReleaseExecutionState(String state){
+   release.setExecutionState(state)
+   api.updateWorkflowReleaseExecutionState(release.getId(), state)
 }
 
 
@@ -42,6 +49,16 @@ def init(String env, String url) {
    isActive = true
 }
 
+def initRelease(String releaseId) {
+   if(isActive) {
+      def releaseString = api.getWorkflowRelease(releaseId)
+      def releaseJson = readJSON text: releaseString
+      release.init(releaseString, releaseJson)
+   } else {
+      log.error "Error when initialize release: instance not active"
+      error "Error when initialize release: instance not active"
+   }
+}
 
 def getAuth(Map props) {
    if (props.authMethod == RocketConstants.ROCKET_AUTH_USER_PASS) {
@@ -59,7 +76,7 @@ def getAuth(Map props) {
       log.error "Auth Method not implemented yet"
       error "Auth Method not implemented yet"
    } else {
-      log.debug "No auth..."
+      log.debug "No auth for ${props.url}"
       return ""
    }
 }

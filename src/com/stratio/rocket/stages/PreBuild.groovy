@@ -4,5 +4,6 @@ import com.stratio.rocket.rocketUtils.RocketConstants
 
 def executeStage() {
 
-    rocket.dev.api.updateWorkflowReleaseExecutionState(context.props["releaseId"], RocketConstants.RELEASE_STARTED)
+    rocket.dev.updateReleaseExecutionState(RocketConstants.RELEASE_STARTED)
+
 }

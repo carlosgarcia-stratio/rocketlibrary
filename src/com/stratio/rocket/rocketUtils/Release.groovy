@@ -37,4 +37,8 @@ class Release implements Serializable {
     def getExecutionState(){
         return releaseJson["executionState"]
     }
+
+    def setExecutionState(String state) {
+        releaseJson["executionState"] = state
+    }
 }

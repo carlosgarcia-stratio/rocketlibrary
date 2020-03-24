@@ -13,6 +13,7 @@ def initInstances() {
     def dev_url = context.getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_DEV)
     if (dev_url) {
         dev.init(RocketConstants.DEV, dev_url)
+        dev.initRelease(context.props["releaseId"])
     }
 
     def pre_url = context.getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_PRE)

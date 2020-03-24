@@ -19,12 +19,13 @@ def execute() {
     def wfJson = readJSON text: workflow
 
     //Get Project for Workflow version
-    def project = rocket.dev.getProject(rocket.dev.workflow.getProjectId())
+    def project = rocket.dev.getProject(wfJson["projectId"])
     def projectJson = readJSON text: project
-    rocket.dev.project.init(project, projectJson)
 
     def folders = wfJson["group"]["name"].split("/").findAll{ !(it == '' || it == 'home' || it == projectJson["name"]) }
-    rocket.dev.workflow.init(workflow, wfJson, context.props["releaseId"])
+
+    rocket.dev.workflow.init(workflow, wfJson, folders)
+    rocket.dev.project.init(project, projectJson)
 }
 
 return this

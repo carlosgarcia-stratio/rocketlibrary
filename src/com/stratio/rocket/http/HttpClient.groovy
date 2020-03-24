@@ -2,18 +2,17 @@ package com.stratio.rocket.http
 
 
 def String execute(String command) {
-    def response = sh(script: command)
-    return request
+    sh(script: command)
 }
 
 def String executeWithOutput(String command) {
     def response = sh(script: command, returnStdout: true)
-    return request
+    return response
 }
 
 def String executeWithStatus(String command) {
     def response = sh(script: command, returnStatus: true)
-    return request
+    return response
 }
 
 return this

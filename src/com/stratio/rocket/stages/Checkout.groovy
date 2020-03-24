@@ -14,7 +14,7 @@ def executeStage() {
 def execute() {
     log.info("Checkout Stages execute")
     //Get Workflow version
-    def workflow = rocket.dev.api.getWorkflow(context.props["workflowId"])
+    def workflow = rocket.dev.getWorkflow(context.props["workflowId"])
     rocket.dev.workflow.init(workflow, readJSON(text: workflow), context.props["releaseId"])
 
     //Get Project for Workflow version

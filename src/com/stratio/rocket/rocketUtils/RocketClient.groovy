@@ -26,8 +26,7 @@ def getWorkflowRelease(String releaseId) {
                         .withUrl("${url}/release/workflow/findById/${releaseId}")
                         .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def addWorkflowReleaseStage(String releaseId, String name, String state, String message) {
@@ -44,8 +43,7 @@ def addWorkflowReleaseStage(String releaseId, String name, String state, String 
             .withUrl("${url}/release/workflow/addReleaseStage")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def addWorkflowReleaseInfo(String releaseId, String key, String message) {
@@ -62,8 +60,7 @@ def addWorkflowReleaseInfo(String releaseId, String key, String message) {
             .withUrl("${url}/release/workflow/addInfo")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def updateWorkflowReleaseExecutionState(String releaseId, String state) {
@@ -80,8 +77,7 @@ def updateWorkflowReleaseExecutionState(String releaseId, String state) {
             .withUrl("${url}/release/workflow/executionState")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def updateWorkflowReleaseWorkflowState(String releaseId, String state) {
@@ -98,8 +94,7 @@ def updateWorkflowReleaseWorkflowState(String releaseId, String state) {
             .withUrl("${url}/release/workflow/workflowState")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 // Workflows
@@ -113,8 +108,7 @@ def getWorkflow(String workflowId) {
             .withUrl("${url}/workflows/findById/${workflowId}")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def importWorkflow(String workflow, String groupId, String projectId, String name, String description) {
@@ -129,8 +123,7 @@ def importWorkflow(String workflow, String groupId, String projectId, String nam
             .withUrl("${url}/assets/import")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def validateWorkflow(String id, String name, String description, String settings, String pipelineGraph, String executionEngine,
@@ -151,9 +144,8 @@ def validateWorkflow(String id, String name, String description, String settings
             .withUrl("${url}/workflows/validateWithoutExecutionContext")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    println(response)
-    return response
+
+    return request
 }
 
 // Project & Folders
@@ -166,8 +158,7 @@ def getProject(String projectId) {
             .withUrl("${url}/projects/findById/${projectId}")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def findProjectByName(String name) {
@@ -180,8 +171,7 @@ def findProjectByName(String name) {
             .withUrl("${url}/projects/findByName/${name}")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 def createProject(String name, String description) {
@@ -197,8 +187,7 @@ def createProject(String name, String description) {
             .withUrl("${url}/projects")
             .getRequest()
 
-    String response = new HttpClient().execute(request)
-    return response
+    return request
 }
 
 return this

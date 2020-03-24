@@ -8,11 +8,16 @@ import com.stratio.rocket.rocketUtils.Project
 @Field def api = new RocketClient()
 @Field def workflow = new Workflow()
 @Field def project = new Project()
+@Field def http = new HttpClient()
+
+String getWorkflow(String workflowId) {
+   def request = api.getWorkflow(workflowId)
+   http.executeWithOutput(request)
+}
 
 def createProjectIfNotExist(String projectName) {
 
    api.findProjectByName(rocket.dev.project.getName())
-
 }
 
 return this

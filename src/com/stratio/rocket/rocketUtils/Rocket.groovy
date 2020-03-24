@@ -31,7 +31,12 @@ def getProject(String projectId) {
 
 def getRelease(String releaseId){
    def request = api.getWorkflowRelease(releaseId)
-   def response = http.executeWithOutput(request)
+   try {
+      def response = http.executeWithOutput(request)
+   } catch(Exception e) {
+      log.error "Error getting release ${releaseId}: ${e.toString()}"
+      error "Error getting release ${releaseId}: ${e.toString()}"
+   }
    println(response)
    return response
 }

@@ -6,9 +6,9 @@ class Workflow implements Serializable {
 
     String wfString;
     Map wfJson;
-    String[] folders;
+    ArrayList<String> folders;
 
-    void init(String wf, Map wfJson, String releaseId, String[] folders) {
+    void init(String wf, Map wfJson, String releaseId, ArrayList<String> folders) {
         this.wfString = wf
         this.wfJson = wfJson
         this.folders = folders

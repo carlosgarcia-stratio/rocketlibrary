@@ -9,3 +9,7 @@ def warning(message) {
 def error(message) {
     echo "ERROR: ${message}"
 }
+
+def debug(message) {
+    echo "DEBUG: ${message}"
+}

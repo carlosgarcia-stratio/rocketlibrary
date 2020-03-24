@@ -29,11 +29,16 @@ def getProject(String projectId) {
    return response
 }
 
+def getRelease(String releaseId){
+   def request = api.getWorkflowRelease(releaseId)
+   def response = http.executeWithOutput(request)
+   return response
+}
+
 def updateReleaseExecutionState(String state){
    release.setExecutionState(state)
    api.updateWorkflowReleaseExecutionState(release.getId(), state)
 }
-
 
 def init(String env, String url) {
    def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)
@@ -51,7 +56,7 @@ def init(String env, String url) {
 
 def initRelease(String releaseId) {
    if(isActive) {
-      def releaseString = api.getWorkflowRelease(releaseId)
+      def releaseString = getRelease(releaseId)
       def releaseJson = readJSON text: releaseString
       release.init(releaseString, releaseJson)
    } else {

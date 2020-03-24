@@ -20,7 +20,7 @@ def initInstances() {
         pre.init(RocketConstants.PRE, pre_url)
     }
 
-    def pro_url = getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_PRO)
+    def pro_url = context.getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_PRO)
     if (pro_url) {
         pro.init(RocketConstants.PRO, pro_url)
     }

@@ -22,6 +22,7 @@ def getWorkflowRelease(String releaseId) {
                         .withAuth(auth)
                         .get()
                         .insecure()
+                        .silent()
                         .withUrl("${url}/release/workflow/findById/${releaseId}")
                         .getRequest()
 
@@ -39,6 +40,7 @@ def addWorkflowReleaseStage(String releaseId, String name, String state, String 
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/release/workflow/addReleaseStage")
             .getRequest()
 
@@ -56,6 +58,7 @@ def addWorkflowReleaseInfo(String releaseId, String key, String message) {
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/release/workflow/addInfo")
             .getRequest()
 
@@ -73,6 +76,7 @@ def updateWorkflowReleaseExecutionState(String releaseId, String state) {
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/release/workflow/executionState")
             .getRequest()
 
@@ -90,6 +94,7 @@ def updateWorkflowReleaseWorkflowState(String releaseId, String state) {
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/release/workflow/workflowState")
             .getRequest()
 
@@ -104,6 +109,7 @@ def getWorkflow(String workflowId) {
             .withAuth(auth)
             .get()
             .insecure()
+            .silent()
             .withUrl("${url}/workflows/findById/${workflowId}")
             .getRequest()
 
@@ -119,6 +125,7 @@ def importWorkflow(String workflow, String groupId, String projectId, String nam
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/assets/import")
             .getRequest()
 
@@ -140,6 +147,7 @@ def validateWorkflow(String id, String name, String description, String settings
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/workflows/validateWithoutExecutionContext")
             .getRequest()
 
@@ -154,6 +162,7 @@ def getProject(String projectId) {
             .withAuth(auth)
             .get()
             .insecure()
+            .silent()
             .withUrl("${url}/projects/findById/${projectId}")
             .getRequest()
 
@@ -167,6 +176,7 @@ def findProjectByName(String name) {
             .get()
             .withFail()
             .insecure()
+            .silent()
             .withUrl("${url}/projects/findByName/${name}")
             .getRequest()
 
@@ -183,6 +193,7 @@ def createProject(String name, String description) {
             .withHeader("Content-Type:application/json")
             .withBody(body)
             .insecure()
+            .silent()
             .withUrl("${url}/projects")
             .getRequest()
 

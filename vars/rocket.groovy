@@ -32,7 +32,7 @@ def initInstances() {
                          url: pre_url,
                          credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS_PRE,
                          tenant: pre_tenant,
-                         tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH_PRO
+                         tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH_PRE
                         ]
         def auth = getAuth(authProps)
         pre.api.initialize(pre_url, auth)

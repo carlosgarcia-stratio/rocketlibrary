@@ -4,14 +4,12 @@ import com.stratio.rocket.http.HttpRequest
 import groovy.transform.Field
 
 @Field def url
-@Field def isActive = false
 @Field def auth = ""
 
 def initialize(String aUrl, String authProps) {
 
     url = aUrl
     auth = authProps
-    isActive = true
 }
 
 // Releases

@@ -3,9 +3,9 @@ package com.stratio.rocket.flow
 class Flows implements Serializable {
 
     static def FLOW_DEV_PRO = [
-        Stages.CHECKOUT,
-        Stages.VERIFY,
-        Stages.DEPLOY
+        Stages.CHECKOUT
+//        Stages.VERIFY,
+//        Stages.DEPLOY
     ]
 
     static def FLOW_DEV_PRE_PRO = [

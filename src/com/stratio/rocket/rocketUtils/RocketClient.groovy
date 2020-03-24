@@ -1,6 +1,5 @@
 package com.stratio.rocket.rocketUtils
 
-import com.stratio.rocket.http.HttpClient
 import com.stratio.rocket.http.HttpRequest
 import groovy.transform.Field
 

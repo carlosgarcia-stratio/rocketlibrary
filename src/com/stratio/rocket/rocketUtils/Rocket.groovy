@@ -32,6 +32,7 @@ def getProject(String projectId) {
 def getRelease(String releaseId){
    def request = api.getWorkflowRelease(releaseId)
    def response = http.executeWithOutput(request)
+   println(response)
    return response
 }
 

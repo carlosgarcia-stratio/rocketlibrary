@@ -241,4 +241,33 @@ def createWorkflowVersion(Long version, String uiSettings, String pipelineGraph,
     return request
 }
 
+def updateWorkflowVersion(String id, Long version, String uiSettings, String pipelineGraph, String tags, String settings, String workflowMasterId, String workflowType) {
+    String body = "{\"version\":${id},\"version\":${version},\"uiSettings\":${uiSettings},\"pipelineGraph\":${pipelineGraph},\"tags\":${tags},\"settings\":${settings},\"workflowMasterId\":\"${workflowMasterId}\", \"workflowType\":\"${workflowType}\"}"
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .put()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .silent()
+            .withUrl("${url}/workflows")
+            .getRequest()
+
+    return request
+}
+
+def findWorkflowVersions(String workflowId) {
+
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .get()
+            .insecure()
+            .silent()
+            .withUrl("${url}/workflow/findVersions/${workflowId}")
+            .getRequest()
+
+    return request
+
+}
+
 return this

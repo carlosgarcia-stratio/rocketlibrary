@@ -35,7 +35,8 @@ def execute() {
             rocket.dev.workflow.getExecutionEngine()
     )
 
-    rocket.pro.createWorkflowVersion(
+    //Create or Update Workflow Version
+    rocket.pro.createOrUpdateWorkflowVersion(
             rocket.dev.workflow.getVersion(),
             "[]",
             rocket.dev.workflow.getPipelineGraph(),
@@ -45,13 +46,6 @@ def execute() {
             rocket.dev.workflow.getWorkflowType()
     )
 
-
-//    String workflow = rocket.pro.api.importWorkflow(rocket.dev.workflow.getAsEscapedJson(),
-//            rocket.dev.project.getGroupId(),
-//            rocket.dev.project.getId(),
-//            rocket.dev.workflow.getName(),
-//            rocket.dev.workflow.getDescription())
-//    println(workflow)
 }
 
 return this

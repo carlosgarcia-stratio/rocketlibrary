@@ -151,10 +151,35 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
    return workflowJson.workflowAsset.id
 }
 
-def createWorkflowVersion(Long version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
-   def request = api.createWorkflowVersion(version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
+def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
+   def request = api.findWorkflowVersions(workflowMasterId)
    def response = http.executeWithOutput(request)
-   println(response)
+   workflowIds = http.handleJsonResponse(response, "Error finding workflow versionID for workflow ${workflowMasterId}")
+
+   workflowIdsJson = readJSON text: workflowIds
+   def id = workflowIdsJson.find { it.value == targetVersion }
+   return id
+}
+
+def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
+
+   def workflowVersionId = getWorkflowVersionId(workflowMasterId, version)
+   def request
+   def response
+   def id
+   if(workflowVersionId) {
+      request = api.udapteWorkflowVersion(workflowVersionId, version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
+      response = http.executeWithOutput(request)
+      http.handleJsonResponse(response, "Error updating version for workflow ${workflowMasterId}")
+      id = workflowVersionId
+   } else {
+      request = api.createWorkflowVersion(version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
+      response = http.executeWithOutput(request)
+      http.handleJsonResponse(response, "Error creating version for workflow ${workflowMasterId}")
+      id = getWorkflowVersionId(workflowMasterId, version)
+   }
+
+   if(id) return id else error "Error creating or updating version for workflow ${workflowMasterId}"
 }
 
 def init(String env, String url) {

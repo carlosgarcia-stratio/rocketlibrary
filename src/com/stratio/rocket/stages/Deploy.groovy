@@ -36,7 +36,7 @@ def execute() {
     )
     println(workflowId)
 
-    context.pro.createWorkflowVersion(
+    rocket.pro.createWorkflowVersion(
             rocket.dev.workflow.getVersion(),
             [],
             rocket.dev.workflow.getPipelineGraph(),

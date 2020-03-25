@@ -19,7 +19,6 @@ def execute() {
     //Create project if not exist
     def project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName(), rocket.dev.project.getDescription())
     def projectJson = readJSON text: project
-    println(projectJson)
     rocket.pro.project.init(project, projectJson)
 
     //Create folders if not exist

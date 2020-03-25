@@ -185,12 +185,13 @@ def createProject(String name, String description) {
 }
 
 def findGroupByName(String name) {
+    def formattedName = name.replace("/","%2F")
     String request = new HttpRequest()
             .withAuth(auth)
             .get()
             .insecure()
             .silent()
-            .withUrl("${url}/groups/findByName/${name}")
+            .withUrl("${url}/groups/findByName/${formattedName}")
             .getRequest()
 
     return request

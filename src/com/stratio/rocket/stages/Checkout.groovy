@@ -24,9 +24,7 @@ def execute() {
     def project = rocket.dev.getProject(wfJson["projectId"])
     def projectJson = readJSON text: project
 
-    def folders = wfJson["group"]["name"].split("/").findAll{ !(it == '' || it == 'home' || it == projectJson["name"]) }
-
-    rocket.dev.workflow.init(workflow, wfJson, folders)
+    rocket.dev.workflow.init(workflow, wfJson)
     rocket.dev.project.init(project, projectJson)
     message = "Workflow version ${rocket.dev.workflow.getId()} and project ${rocket.dev.project.getId()} successfully checked out."
 }

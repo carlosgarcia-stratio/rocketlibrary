@@ -26,7 +26,6 @@ def handleJsonResponse(String response, String message) {
     }
 
     if(responseJson.errorCode) {
-        log.error message + ": ${responseJson.exception}"
         error message + ": ${responseJson.exception}"
     }
 

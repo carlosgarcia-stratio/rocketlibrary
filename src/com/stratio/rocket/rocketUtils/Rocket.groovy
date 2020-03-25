@@ -69,6 +69,68 @@ def validateWorkflow() {
    }
 }
 
+def createProject(String name, String description) {
+   def request = api.createProject(name, description)
+   def response = http.executeWithOutput(request)
+   println(response)
+   http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
+}
+
+def createProjectIfNotExist(String projectName, String description) {
+   def request = api.findProjectByName(projectName)
+   def response = http.executeWithOutput(request)
+   def project = null
+   try {
+      project = http.handleJsonResponse(response, "Error retrieving project ${projectName}")
+   } catch(Exception e) {
+      log.info "Project ${projectName} not found in ${api.url}"
+   }
+
+   if(!project) {
+      project = createProject(projectName, description)
+   } else {
+      log.info "Project ${projectName} found in ${api.url}"
+   }
+
+   println(project)
+   return project
+}
+
+def createFoldersIfNotExist(String projectName, String folders) {
+
+   def folderList = folders.split("/").findAll{ !(it == '' || it == 'home' || it == projectName) }
+   def folder = ""
+   def group = null
+   folderList.each { f ->
+      folder +=  "/$f"
+      group = createFolderIfNotExist(projectName, folder)
+   }
+
+   return group
+}
+
+def createFolderIfNotExist(String projectName, String folder) {
+
+   def groupName = "/home/$projectName$folder"
+
+   def request = api.findGroupByName(groupName)
+   def response = http.executeWithOutput(request)
+   def group = null
+   try {
+      group = http.handleJsonResponse(response, "Error retrieving group ${groupName}")
+   } catch(Exception e) {
+      log.info "Group ${groupName} not found in ${api.url}"
+   }
+
+   if(!group) {
+      request = api.createGroup(groupName)
+      response = http.executeWithOutput(request)
+      group = http.handleJsonResponse(response, "Error creating group ${groupName}")
+   }
+
+   return group
+}
+
 def init(String env, String url) {
    def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)
    def tenant = context.getFromPropsOrEnv(RocketConstants.ROCKET_TENANT[env])
@@ -89,7 +151,6 @@ def initRelease(String releaseId) {
       def releaseJson = readJSON text: releaseString
       release.init(releaseString, releaseJson)
    } else {
-      log.error "Error when initialize release: instance not active"
       error "Error when initialize release: instance not active"
    }
 }
@@ -107,7 +168,6 @@ def getAuth(Map props) {
          return "-H 'Cookie: user=${token}'"
       }
    } else if(props.authMethod == RocketConstants.ROCKET_AUTH_MUTUAL_TLS) {
-      log.error "Auth Method not implemented yet"
       error "Auth Method not implemented yet"
    } else {
       log.debug "No auth for ${props.url}"

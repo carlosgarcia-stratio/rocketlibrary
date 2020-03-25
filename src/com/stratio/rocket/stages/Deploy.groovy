@@ -17,10 +17,13 @@ def execute() {
     log.info("Deploy Stage execute")
 
     //Create if project exist
-    //String project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName())
+    def project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName(), rocket.dev.project.getDescription())
+    def projectJson = readJSON text: project
+    rocket.pro.project.init(project, projectJson)
 
-//    String project = rocket.pro.api.createProject(rocket.dev.project.getName(), rocket.dev.project.getDescription())
-//    println(project)
+    def group = rocket.pro.createFoldersIfNotExist(rocket.pro.project.getName(), rocket.dev.workflow.getGroupName())
+    def groupJson = readJSON text: group
+
 //    String workflow = rocket.pro.api.importWorkflow(rocket.dev.workflow.getAsEscapedJson(),
 //            rocket.dev.project.getGroupId(),
 //            rocket.dev.project.getId(),

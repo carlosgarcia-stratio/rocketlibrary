@@ -185,4 +185,32 @@ def createProject(String name, String description) {
     return request
 }
 
+def findGroupByName(String name) {
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .get()
+            .insecure()
+            .silent()
+            .withUrl("${url}/groups/findByName/${name}")
+            .getRequest()
+
+    return request
+}
+
+def createGroup(String name) {
+    String body = "{\"name\":\"${name}\"}"
+
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .silent()
+            .withUrl("${url}/groups")
+            .getRequest()
+
+    return request
+}
+
 return this

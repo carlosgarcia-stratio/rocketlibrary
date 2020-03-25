@@ -38,7 +38,7 @@ def execute() {
 
     rocket.pro.createWorkflowVersion(
             rocket.dev.workflow.getVersion(),
-            [],
+            "[]",
             rocket.dev.workflow.getPipelineGraph(),
             rocket.dev.workflow.getTags(),
             rocket.dev.workflow.getSettings(),

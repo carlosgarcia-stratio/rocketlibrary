@@ -19,14 +19,14 @@ def execute() {
     //Create if project exist
     //String project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName())
 
-    String project = rocket.pro.api.createProject(rocket.dev.project.getName(), rocket.dev.project.getDescription())
-    println(project)
-    String workflow = rocket.pro.api.importWorkflow(rocket.dev.workflow.getAsEscapedJson(),
-            rocket.dev.project.getGroupId(),
-            rocket.dev.project.getId(),
-            rocket.dev.workflow.getName(),
-            rocket.dev.workflow.getDescription())
-    println(workflow)
+//    String project = rocket.pro.api.createProject(rocket.dev.project.getName(), rocket.dev.project.getDescription())
+//    println(project)
+//    String workflow = rocket.pro.api.importWorkflow(rocket.dev.workflow.getAsEscapedJson(),
+//            rocket.dev.project.getGroupId(),
+//            rocket.dev.project.getId(),
+//            rocket.dev.workflow.getName(),
+//            rocket.dev.workflow.getDescription())
+//    println(workflow)
 }
 
 return this

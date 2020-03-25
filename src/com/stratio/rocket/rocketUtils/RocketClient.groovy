@@ -160,7 +160,6 @@ def findProjectByName(String name) {
     String request = new HttpRequest()
             .withAuth(auth)
             .get()
-            .withFail()
             .insecure()
             .silent()
             .withUrl("${url}/projects/findByName/${name}")

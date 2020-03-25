@@ -169,8 +169,8 @@ def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipeli
    def id
    if(workflowVersionId) {
       request = api.updateWorkflowVersion(workflowVersionId, version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
-      println(request)
       response = http.executeWithOutput(request)
+      println(response)
       http.handleJsonResponse(response, "Error updating version for workflow ${workflowMasterId}")
       id = workflowVersionId
    } else {

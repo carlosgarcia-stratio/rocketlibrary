@@ -32,4 +32,18 @@ def handleJsonResponse(String response, String message) {
     return response
 }
 
+def handleJsonErrorResponse(String response, String message) {
+
+    def responseJson = [:]
+    try{
+        responseJson = readJSON text: response
+    } catch (Exception e) {}
+
+    if(responseJson.errorCode) {
+        error message + ": ${responseJson.exception}"
+    }
+
+    return response
+}
+
 return this

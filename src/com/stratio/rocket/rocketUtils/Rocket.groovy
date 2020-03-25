@@ -171,12 +171,12 @@ def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipeli
       request = api.updateWorkflowVersion(workflowVersionId, version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
       response = http.executeWithOutput(request)
       println(response)
-      http.handleJsonResponse(response, "Error updating version for workflow ${workflowMasterId}")
+      http.handleJsonErrorResponse(response, "Error updating version for workflow ${workflowMasterId}")
       id = workflowVersionId
    } else {
       request = api.createWorkflowVersion(version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
       response = http.executeWithOutput(request)
-      http.handleJsonResponse(response, "Error creating version for workflow ${workflowMasterId}")
+      http.handleJsonErrorResponse(response, "Error creating version for workflow ${workflowMasterId}")
       id = getWorkflowVersionId(workflowMasterId, version)
    }
 

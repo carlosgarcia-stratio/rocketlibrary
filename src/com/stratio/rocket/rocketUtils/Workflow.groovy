@@ -4,11 +4,9 @@ import groovy.json.JsonOutput
 
 class Workflow implements Serializable {
 
-    String wfString;
     Map wfJson;
 
-    void init(String wf, Map wfJson) {
-        this.wfString = wf
+    void init(Map wfJson) {
         this.wfJson = wfJson
     }
 
@@ -30,10 +28,6 @@ class Workflow implements Serializable {
 
     String getGroupName() {
         return wfJson["group"]["name"]
-    }
-
-    String getAsEscapedJson(){
-        return JsonOutput.toJson(this.wfString)
     }
 
     String getSettings(Boolean escaped = false) {

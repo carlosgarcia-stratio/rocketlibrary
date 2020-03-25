@@ -2,11 +2,9 @@ package com.stratio.rocket.rocketUtils
 
 class Release implements Serializable {
 
-    String releaseString;
     Map releaseJson;
 
-    void init(String release, Map releaseJson) {
-        this.releaseString = release
+    void init(Map releaseJson) {
         this.releaseJson = releaseJson
     }
 

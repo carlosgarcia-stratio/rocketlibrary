@@ -2,11 +2,9 @@ package com.stratio.rocket.rocketUtils
 
 class Project implements Serializable {
 
-    String projectString;
     Map projectJson;
 
-    void init(String project, Map projectJson) {
-        this.projectString = project
+    void init(Map projectJson) {
         this.projectJson = projectJson
     }
 

@@ -17,14 +17,12 @@ def execute() {
     log.info("Deploy Stage execute")
 
     //Create project if not exist
-    def project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName(), rocket.dev.project.getDescription())
-    def projectJson = readJSON text: project
-    rocket.pro.project.init(project, projectJson)
+    def projectJson = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName(), rocket.dev.project.getDescription())
+    rocket.pro.project.init(projectJson)
 
     //Create folders if not exist
-    def group = rocket.pro.createFoldersIfNotExist(rocket.pro.project.getName(), rocket.dev.workflow.getGroupName())
-    def groupJson = readJSON text: group
-    rocket.pro.group.init(group, groupJson)
+    def groupJson = rocket.pro.createFoldersIfNotExist(rocket.pro.project.getName(), rocket.dev.workflow.getGroupName())
+    rocket.pro.group.init(groupJson)
 
     //Create workflow if not exist
     def workflowId = rocket.pro.createWorkflowIfNotExist(
@@ -36,7 +34,7 @@ def execute() {
     )
 
     //Create or Update Workflow Version
-    rocket.pro.createOrUpdateWorkflowVersion(
+    def workflowVersionId = rocket.pro.createOrUpdateWorkflowVersion(
             rocket.dev.workflow.getVersion(),
             "[]",
             rocket.dev.workflow.getPipelineGraph(),
@@ -46,6 +44,7 @@ def execute() {
             rocket.dev.workflow.getWorkflowType()
     )
 
+    message = "Workflow deployed with id ${workflowVersionId} successfully"
 }
 
 return this

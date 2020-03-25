@@ -135,9 +135,9 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
 
    def request = api.findAssetByNameAndGroup(name, groupId)
    def response = http.executeWithOutput(request)
-   def workflow = null
+   def workflowJson = null
    try {
-      workflow = http.handleJsonResponse(response, "Error finding asset name ${name} in group ${groupId}")
+      workflowJson = http.handleJsonResponse(response, "Error finding asset name ${name} in group ${groupId}")
    } catch(Exception e) {
       log.info "Asset name ${name} not found in groupId ${groupId} in ${api.url}"
    }
@@ -145,18 +145,17 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
    if(!workflow) {
       request = api.createWorkflowAsset(name, description, groupId, projectId, executionEngine)
       response = http.executeWithOutput(request)
-      workflow = http.handleJsonResponse(response, "Error creating asset name ${name} in group ${groupId}")
+      workflowJson = http.handleJsonResponse(response, "Error creating asset name ${name} in group ${groupId}")
    }
-   def workflowJson = readJSON text: workflow
+
    return workflowJson.workflowAsset.id
 }
 
 def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
    def request = api.findWorkflowVersions(workflowMasterId)
    def response = http.executeWithOutput(request)
-   workflowIds = http.handleJsonResponse(response, "Error finding workflow versionID for workflow ${workflowMasterId}")
+   workflowIdsJson = http.handleJsonResponse(response, "Error finding workflow versionID for workflow ${workflowMasterId}")
 
-   workflowIdsJson = readJSON text: workflowIds
    def id = workflowIdsJson.find { it.value == targetVersion }?.key
    return id
 }
@@ -170,7 +169,6 @@ def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipeli
    if(workflowVersionId) {
       request = api.updateWorkflowVersion(workflowVersionId, version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
       response = http.executeWithOutput(request)
-      println(response)
       http.handleJsonErrorResponse(response, "Error updating version for workflow ${workflowMasterId}")
       id = workflowVersionId
    } else {
@@ -199,9 +197,8 @@ def init(String env, String url) {
 
 def initRelease(String releaseId) {
    if(isActive) {
-      def releaseString = getRelease(releaseId)
-      def releaseJson = readJSON text: releaseString
-      release.init(releaseString, releaseJson)
+      def releaseJson = getRelease(releaseId)
+      release.init(releaseJson)
    } else {
       error "Error when initialize release: instance not active"
    }

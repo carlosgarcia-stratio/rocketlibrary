@@ -17,15 +17,13 @@ def execute() {
     log.info("Checkout Stages execute")
 
     //Get Workflow version
-    def workflow = rocket.dev.getWorkflow(context.props["workflowId"])
-    def wfJson = readJSON text: workflow
+    def wfJson = rocket.dev.getWorkflow(context.props["workflowId"])
 
     //Get Project for Workflow version
-    def project = rocket.dev.getProject(wfJson["projectId"])
-    def projectJson = readJSON text: project
+    def projectJson = rocket.dev.getProject(wfJson["projectId"])
 
-    rocket.dev.workflow.init(workflow, wfJson)
-    rocket.dev.project.init(project, projectJson)
+    rocket.dev.workflow.init(wfJson)
+    rocket.dev.project.init(projectJson)
     message = "Workflow version ${rocket.dev.workflow.getId()} and project ${rocket.dev.project.getId()} successfully checked out."
 }
 

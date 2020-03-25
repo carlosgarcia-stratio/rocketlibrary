@@ -29,7 +29,7 @@ def handleJsonResponse(String response, String message) {
         error message + ": ${responseJson.exception}"
     }
 
-    return response
+    return responseJson
 }
 
 def handleJsonErrorResponse(String response, String message) {

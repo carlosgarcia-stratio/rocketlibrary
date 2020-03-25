@@ -2,11 +2,9 @@ package com.stratio.rocket.rocketUtils
 
 class Group implements Serializable {
 
-    String groupString;
     Map groupJson;
 
-    void init(String group, Map groupJson) {
-        this.groupString = group
+    void init(Map groupJson) {
         this.groupJson = groupJson
     }
 
@@ -17,4 +15,5 @@ class Group implements Serializable {
     String getName() {
         return groupJson["name"]
     }
+
 }

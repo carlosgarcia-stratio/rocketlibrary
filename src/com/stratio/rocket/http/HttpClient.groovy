@@ -15,4 +15,20 @@ def executeWithStatus(String command) {
     return response
 }
 
+def handleJsonResponse(String response, String message) {
+
+    def reponseJson = [:]
+    try{
+        reponseJson = readJSON text: response
+    } catch (Exception e) {
+        log.error message + ": ${e.toString()}"
+        error message + ": ${e.toString()}"
+    }
+
+    if(responseJson.errorCode) {
+        log.error message + ": ${responseJson.exception}"
+        error message + ": ${responseJson.exception}"
+    }
+}
+
 return this

@@ -17,7 +17,6 @@ def getWorkflowRelease(String releaseId) {
 
     String request = new HttpRequest()
                         .withAuth(auth)
-                        .withFail()
                         .get()
                         .insecure()
                         .silent()

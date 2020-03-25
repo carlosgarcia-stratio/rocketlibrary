@@ -15,36 +15,31 @@ import com.stratio.rocket.rocketUtils.Release
 @Field def http = new HttpClient()
 @Field def isActive = false
 
-
-
 def getWorkflow(String workflowId) {
    def request = api.getWorkflow(workflowId)
    def response = http.executeWithOutput(request)
-   return response
+   return http.handleJsonResponse(response)
 }
 
 def getProject(String projectId) {
    def request = api.getProject(projectId)
    def response = http.executeWithOutput(request)
-   return response
+   return http.handleJsonResponse(response)
 }
 
 def getRelease(String releaseId){
-   def request = api.getWorkflowRelease(releaseId)
-   try {
+      def request = api.getWorkflowRelease(releaseId)
       def response = http.executeWithOutput(request)
-   } catch(Exception e) {
-      log.error "Error getting release ${releaseId}: ${e.toString()}"
-      error "Error getting release ${releaseId}: ${e.toString()}"
-   }
-   println(response)
-   return response
+      return http.handleJsonResponse(response)
 }
 
 def updateReleaseExecutionState(String state){
    release.setExecutionState(state)
    api.updateWorkflowReleaseExecutionState(release.getId(), state)
 }
+
+
+
 
 def init(String env, String url) {
    def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)

@@ -242,7 +242,7 @@ def createWorkflowVersion(Long version, String uiSettings, String pipelineGraph,
 }
 
 def updateWorkflowVersion(String id, Long version, String uiSettings, String pipelineGraph, String tags, String settings, String workflowMasterId, String workflowType) {
-    String body = "{\"version\":${id},\"version\":${version},\"uiSettings\":${uiSettings},\"pipelineGraph\":${pipelineGraph},\"tags\":${tags},\"settings\":${settings},\"workflowMasterId\":\"${workflowMasterId}\", \"workflowType\":\"${workflowType}\"}"
+    String body = "{\"id\":\"${id}\",\"version\":${version},\"uiSettings\":${uiSettings},\"pipelineGraph\":${pipelineGraph},\"tags\":${tags},\"settings\":${settings},\"workflowMasterId\":\"${workflowMasterId}\", \"workflowType\":\"${workflowType}\"}"
     String request = new HttpRequest()
             .withAuth(auth)
             .put()

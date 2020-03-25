@@ -151,7 +151,7 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
    return workflowJson.workflowAsset.id
 }
 
-def createWorkflowVersion(String version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
+def createWorkflowVersion(Long version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
    def request = api.createWorkflowVersion(version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
    def response = http.executeWithOutput(request)
    println(response)

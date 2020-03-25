@@ -18,19 +18,19 @@ import com.stratio.rocket.rocketUtils.Release
 def getWorkflow(String workflowId) {
    def request = api.getWorkflow(workflowId)
    def response = http.executeWithOutput(request)
-   return http.handleJsonResponse(response)
+   return http.handleJsonResponse(response, "Error retrievieng workflow version ${workflowId}")
 }
 
 def getProject(String projectId) {
    def request = api.getProject(projectId)
    def response = http.executeWithOutput(request)
-   return http.handleJsonResponse(response)
+   return http.handleJsonResponse(response, "Error retrievieng project ${projectId}")
 }
 
 def getRelease(String releaseId){
-      def request = api.getWorkflowRelease(releaseId)
-      def response = http.executeWithOutput(request)
-      return http.handleJsonResponse(response)
+   def request = api.getWorkflowRelease(releaseId)
+   def response = http.executeWithOutput(request)
+   return http.handleJsonResponse(response, "Error retrievieng workflow release ${releaseId}")
 }
 
 def updateReleaseExecutionState(String state){

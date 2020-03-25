@@ -58,8 +58,15 @@ def validateWorkflow() {
            workflow.getWorkflowType(), workflow.getVersion(), workflow.getGroup(), workflow.getTags(),
            workflow.getWorkflowMasterId(), workflow.getProjectId())
    def response = http.executeWithOutput(request)
-   println(response)
    http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
+   def responseJson = readJSON text: response
+   if(!responseJson.valid) {
+      if(responseJson.messages) {
+         error "Error validating workflow ${workflow.getId()}: ${responseJson.messages.toString()}"
+      } else {
+         error "Error validating workflow ${workflow.getId()}
+      }
+   }
 }
 
 def init(String env, String url) {

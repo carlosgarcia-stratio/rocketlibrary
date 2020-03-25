@@ -151,6 +151,12 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
    return workflowJson.workflowAsset.id
 }
 
+def createWorkflowVersion(String version, Map uiSettings, Map pipelineGraph, ArrayList<String> tags, Map settings, String workflowMasterId, String workflowType) {
+   def request = api.createWorkflowVersion(version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
+   def response = http.executeWithOutput(request)
+   println(response)
+}
+
 def init(String env, String url) {
    def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)
    def tenant = context.getFromPropsOrEnv(RocketConstants.ROCKET_TENANT[env])

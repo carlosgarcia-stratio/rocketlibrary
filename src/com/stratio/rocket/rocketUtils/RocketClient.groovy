@@ -263,7 +263,7 @@ def findWorkflowVersions(String workflowId) {
             .get()
             .insecure()
             .silent()
-            .withUrl("${url}/workflow/findVersions/${workflowId}")
+            .withUrl("${url}/workflows/findVersions/${workflowId}")
             .getRequest()
 
     return request

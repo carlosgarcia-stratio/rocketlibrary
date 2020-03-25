@@ -7,19 +7,33 @@ import com.stratio.rocket.stages.PostStage
 
 def execute(flow) {
     node{
-        new PreBuild().executeStage()
-        flow.each { s ->
-            executeStage(s)
+        try {
+            new PreBuild().executeStage()
+            flow.each { s ->
+                executeStage(s)
+            }
+        } catch(Exception e) {
+            context.buildStatus = "FAILURE"
+            context.error = e.getMessage()
+        } finally {
+            new PostBuild().executeStage()
+            currentBuild.result = context.buildStatus
         }
-        new PostBuild().executeStage()
     }
 }
 
 def executeStage(fStage){
     stage(fStage.name){
-        new PreStage().executeStage(fStage)
-        fStage.executeStage()
-        new PostStage().executeStage(fStage)
+        try {
+            new PreStage().executeStage(fStage)
+            fStage.executeStage()
+        } catch(Exception e) {
+            log.error "Error executing stage ${fStage.name}: ${e.getMessage()}"
+            error "Error executing stage ${fStage.name}: ${e.getMessage()}"
+        } finally {
+            new PostStage().executeStage(fStage)
+        }
+
     }
 }
 

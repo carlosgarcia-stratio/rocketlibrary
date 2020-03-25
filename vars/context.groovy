@@ -3,6 +3,8 @@
 import groovy.transform.Field
 
 @Field def static props = [:]
+@Field def buildStatus = "SUCCESS"
+@Field def error = ""
 
 def init(Map p) {
     props << p

@@ -21,8 +21,8 @@ def handleJsonResponse(String response, String message) {
     try{
         responseJson = readJSON text: response
     } catch (Exception e) {
-        log.error message + ": ${e.toString()}"
-        error message + ": ${e.toString()}"
+        log.error message + ": ${e.getMessage()}"
+        error message + ": ${e.getMessage()}"
     }
 
     if(responseJson.errorCode) {

@@ -4,6 +4,8 @@ import groovy.transform.Field
 import com.stratio.rocket.flow.Stages
 
 @Field def name = Stages.CHECKOUT
+@Field def status = "SUCCESS"
+@Field def error = ""
 
 def executeStage() {
     log.info("Checkout Stage started")

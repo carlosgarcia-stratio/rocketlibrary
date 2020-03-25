@@ -28,13 +28,20 @@ def executeStage(fStage){
             new PreStage().executeStage(fStage)
             fStage.executeStage()
         } catch(Exception e) {
-            log.error "Error executing stage ${fStage.name}: ${e.getMessage()}"
-            error "Error executing stage ${fStage.name}: ${e.getMessage()}"
+            handleStageError(fStage, e)
         } finally {
             new PostStage().executeStage(fStage)
         }
 
     }
+}
+
+def handleStageError(stage, Exception e) {
+    def errorMsg = "Error executing stage ${stage.name}: ${e.getMessage()}"
+    log.error errorMsg
+    stage.error = errorMsg
+    stage.status = "FAILED"
+    error errorMsg
 }
 
 return this

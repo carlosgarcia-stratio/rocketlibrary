@@ -4,5 +4,10 @@ import com.stratio.rocket.rocketUtils.RocketConstants
 
 def executeStage(s) {
 
-    rocket.dev.api.addWorkflowReleaseStage(context.props["releaseId"], s.name, RocketConstants.STAGE_FINISHED, "Stage ${s.name} finished.")
+    if(s.status == "FAILED"){
+        rocket.dev.addReleaseStageState(s.name, RocketConstants.STAGE_FAILED, "Stage ${s.name} failed: ${s.error}.")
+    } else {
+        rocket.dev.addReleaseStageState(s.name, RocketConstants.STAGE_FINISHED, "Stage ${s.name} finished.")
+    }
+
 }

@@ -4,6 +4,8 @@ import groovy.transform.Field
 import com.stratio.rocket.flow.Stages
 
 @Field def name = Stages.VERIFY
+@Field def status = "SUCCESS"
+@Field def error = ""
 
 def executeStage() {
     log.info("Verify Stage started")

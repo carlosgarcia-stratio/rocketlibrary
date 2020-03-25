@@ -45,6 +45,12 @@ def addReleaseInfo(String key, String info){
    http.handleJsonResponse(response, "Error adding release info for release ${releaseId}")
 }
 
+def addReleaseStageState(String name, String state, String message){
+   def request = api.addWorkflowReleaseStage(release.getId(), name, state, message)
+   def response = http.executeWithOutput(request)
+   http.handleJsonResponse(response, "Error adding release stage state for release ${releaseId}")
+}
+
 
 
 def init(String env, String url) {

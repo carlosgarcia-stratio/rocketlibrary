@@ -153,8 +153,8 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
 
 def createWorkflowVersion(Long version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
    def request = api.createWorkflowVersion(version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
-   def response = http.executeWithOutput(request)
-   println(response)
+   def response = http.execute(request)
+   //println(response)
 }
 
 def init(String env, String url) {

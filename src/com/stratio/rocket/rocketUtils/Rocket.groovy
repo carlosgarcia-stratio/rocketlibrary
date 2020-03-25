@@ -154,7 +154,6 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
 def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
    def request = api.findWorkflowVersions(workflowMasterId)
    def response = http.executeWithOutput(request)
-   println(response)
    workflowIds = http.handleJsonResponse(response, "Error finding workflow versionID for workflow ${workflowMasterId}")
    workflowIdsJson = readJSON text: workflowIds
    def id = workflowIdsJson.find { it.value == targetVersion }
@@ -168,7 +167,7 @@ def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipeli
    def response
    def id
    if(workflowVersionId) {
-      request = api.udapteWorkflowVersion(workflowVersionId, version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
+      request = api.updateWorkflowVersion(workflowVersionId, version, uiSettings, pipelineGraph, tags, settings, workflowMasterId, workflowType)
       response = http.executeWithOutput(request)
       http.handleJsonResponse(response, "Error updating version for workflow ${workflowMasterId}")
       id = workflowVersionId

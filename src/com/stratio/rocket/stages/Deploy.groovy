@@ -34,7 +34,6 @@ def execute() {
             rocket.pro.project.getId(),
             rocket.dev.workflow.getExecutionEngine()
     )
-    println(workflowId)
 
     rocket.pro.createWorkflowVersion(
             rocket.dev.workflow.getVersion(),

@@ -6,8 +6,7 @@ def execute(String command) {
 }
 
 def executeWithOutput(String command) {
-    //def response = sh(script: '#!/bin/sh -e\n' + command, returnStdout: true)
-    def response = sh(script:command, returnStdout: true)
+    def response = sh(script: '#!/bin/sh -e\n' + command, returnStdout: true)
     return response
 }
 

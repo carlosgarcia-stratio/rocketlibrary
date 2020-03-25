@@ -17,7 +17,7 @@ def execute() {
     log.info("Verify Stages execute")
 
     //Check last execution
-    //TODO: ask for and endpoint to get the latest execution for workfloe
+    //TODO: ask for and endpoint to get the latest execution for workflow
     //Check QR for that execution
 
     //Validate workflow (get context from last execution)

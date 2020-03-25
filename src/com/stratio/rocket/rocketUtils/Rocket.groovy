@@ -62,9 +62,6 @@ def validateWorkflow() {
    http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
 }
 
-
-
-
 def init(String env, String url) {
    def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)
    def tenant = context.getFromPropsOrEnv(RocketConstants.ROCKET_TENANT[env])

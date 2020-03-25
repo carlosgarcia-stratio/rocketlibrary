@@ -5,7 +5,7 @@ import com.stratio.rocket.flow.Stages
 
 @Field def name = Stages.CHECKOUT
 @Field def status = "SUCCESS"
-@Field def error = ""
+@Field def message = ""
 
 def executeStage() {
     log.info("Checkout Stage started")
@@ -28,6 +28,7 @@ def execute() {
 
     rocket.dev.workflow.init(workflow, wfJson, folders)
     rocket.dev.project.init(project, projectJson)
+    message = "Workflow version ${rocket.dev.workflow.getId()} and project ${rocket.dev.project.getId()} successfully checked out."
 }
 
 return this

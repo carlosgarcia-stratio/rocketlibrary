@@ -39,7 +39,7 @@ def executeStage(fStage){
 def handleStageError(stage, Exception e) {
     def errorMsg = "Error executing stage ${stage.name}: ${e.getMessage()}"
     log.error errorMsg
-    stage.error = errorMsg
+    stage.message = errorMsg
     stage.status = "FAILED"
     error errorMsg
 }

@@ -30,7 +30,7 @@ def handleJsonResponse(String response, String message) {
         error message + ": ${responseJson.exception}"
     }
 
-    return responseJson
+    return response
 }
 
 return this

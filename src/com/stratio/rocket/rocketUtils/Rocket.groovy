@@ -48,9 +48,19 @@ def addReleaseInfo(String key, String info){
 def addReleaseStageState(String name, String state, String message){
    def request = api.addWorkflowReleaseStage(release.getId(), name, state, message)
    def response = http.executeWithOutput(request)
-   println(response)
    http.handleJsonResponse(response, "Error adding release stage state for release ${releaseId}")
 }
+
+def validateWorkflow() {
+   
+   def request = api.validateWorkflow(workflow.getId(), workflow.getName(), workflow.getDescription(),
+           workflow.getSettings(), workflow.getPipelineGraph(), workflow.getExecutionEngine(),
+           workflow.getWorkflowType(), workflow.getVersion(), workflow.getGroup(), workflow.getTags(),
+           workflow.getWorkflowMasterId(), workflow.getProjectId())
+   def response = http.executeWithOutput(request)
+   http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
+}
+
 
 
 

@@ -10,5 +10,4 @@ def executeStage(s) {
         def message = s.message == "" ? "Stage ${s.name} finished successfully" : s.message
         rocket.dev.addReleaseStageState(s.name, RocketConstants.STAGE_FINISHED, message)
     }
-
 }

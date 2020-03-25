@@ -4,8 +4,8 @@ class Flows implements Serializable {
 
     static def FLOW_DEV_PRO = [
         Stages.CHECKOUT,
-        Stages.VERIFY
-//        Stages.DEPLOY
+        Stages.VERIFY,
+        Stages.DEPLOY
     ]
 
     static def FLOW_DEV_PRE_PRO = [

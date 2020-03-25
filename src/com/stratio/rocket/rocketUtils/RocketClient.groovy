@@ -130,7 +130,6 @@ def validateWorkflow(String id, String name, String description, String settings
 "executionEngine":"${executionEngine}","workflowType":"${workflowType}","version":${version},"group":${group},"tags":${tags},
 "workflowMasterId":"${workflowMasterId}","projectId":"${projectId}"}"""
 
-    println(body)
     String request = new HttpRequest()
             .withAuth(auth)
             .post()
@@ -140,7 +139,6 @@ def validateWorkflow(String id, String name, String description, String settings
             .silent()
             .withUrl("${url}/workflows/validateWithoutExecutionContext")
             .getRequest()
-
 
     return request
 }

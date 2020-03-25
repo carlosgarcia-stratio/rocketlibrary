@@ -39,8 +39,10 @@ def updateReleaseExecutionState(String state){
    http.handleJsonResponse(response, "Error updating release execution state ${releaseId}")
 }
 
-def addReleaseInfo(Map info){
-
+def addReleaseInfo(String key, String info){
+   def request = addWorkflowReleaseInfo(release.getId())
+   def response = http.executeWithOutput(request)
+   http.handleJsonResponse(response, "Error adding release info for release ${releaseId}")
 }
 
 

@@ -72,8 +72,7 @@ def validateWorkflow() {
 def createProject(String name, String description) {
    def request = api.createProject(name, description)
    def response = http.executeWithOutput(request)
-   println(response)
-   http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
+   http.handleJsonResponse(response, "Error creating project ${name} in ${api.url}")
 }
 
 def createProjectIfNotExist(String projectName, String description) {

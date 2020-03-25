@@ -42,7 +42,7 @@ def execute() {
             rocket.dev.workflow.getPipelineGraph(),
             rocket.dev.workflow.getTags(),
             rocket.dev.workflow.getSettings(),
-            rocket.dev.workflow.getWorkflowMasterId(),
+            workflowId,
             rocket.dev.workflow.getWorkflowType()
     )
 

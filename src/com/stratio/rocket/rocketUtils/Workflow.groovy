@@ -10,7 +10,6 @@ class Workflow implements Serializable {
     void init(String wf, Map wfJson) {
         this.wfString = wf
         this.wfJson = wfJson
-        this.folders = folders
     }
 
     String getId() {

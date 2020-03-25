@@ -163,7 +163,7 @@ def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
 
 def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
 
-   def workflowVersionId = getWorkflowVersionId(workflowMasterId, version)
+   String workflowVersionId = getWorkflowVersionId(workflowMasterId, version)
    def request
    def response
    def id

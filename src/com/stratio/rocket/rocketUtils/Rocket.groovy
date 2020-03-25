@@ -6,11 +6,13 @@ import com.stratio.rocket.rocketUtils.RocketConstants
 import com.stratio.rocket.rocketUtils.RocketClient
 import com.stratio.rocket.rocketUtils.Workflow
 import com.stratio.rocket.rocketUtils.Project
+import com.stratio.rocket.rocketUtils.Group
 import com.stratio.rocket.rocketUtils.Release
 
 @Field def api = new RocketClient()
 @Field def workflow = new Workflow()
 @Field def project = new Project()
+@Field def group = new Group()
 @Field def release = new Release()
 @Field def http = new HttpClient()
 @Field def isActive = false
@@ -97,7 +99,6 @@ def createProjectIfNotExist(String projectName, String description) {
 def createFoldersIfNotExist(String projectName, String folders) {
 
    def folderList = folders.split("/").findAll{ !(it == '' || it == 'home' || it == projectName) }
-   println(folderList)
    def folder = ""
    def group = null
    folderList.each { f ->
@@ -110,9 +111,7 @@ def createFoldersIfNotExist(String projectName, String folders) {
 
 def createFolderIfNotExist(String projectName, String folder) {
 
-   println(folder)
    def groupName = "/home/$projectName$folder"
-   println(groupName)
 
    def request = api.findGroupByName(groupName)
    def response = http.executeWithOutput(request)
@@ -130,6 +129,26 @@ def createFolderIfNotExist(String projectName, String folder) {
    }
 
    return group
+}
+
+def createWorkflowIfNotExist(String name, String description, String groupId, String projectId, String executionEngine) {
+
+   def request = api.findAssetByNameAndGroup(name, groupId)
+   def response = http.executeWithOutput(request)
+   def workflow = null
+   try {
+      workflow = http.handleJsonResponse(response, "Error finding asset name ${name} in group ${groupId}")
+   } catch(Exception e) {
+      log.info "Asset name ${name} not found in groupId ${groupId} in ${api.url}"
+   }
+
+   if(!workflow) {
+      response = api.createWorkflowAsset(name, description, groupId, projectId, executionEngine)
+      response = http.executeWithOutput(request)
+      workflow = http.handleJsonResponse(response, "Error finding asset name ${name} in group ${groupId}")
+   }
+   def workflowJson = readJSON text: workflow
+   return workflowJson.workflowAsset.id
 }
 
 def init(String env, String url) {

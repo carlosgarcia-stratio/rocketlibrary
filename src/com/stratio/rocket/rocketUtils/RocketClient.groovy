@@ -212,4 +212,32 @@ def createGroup(String name) {
     return request
 }
 
+def findAssetByNameAndGroup(String assetName, String groupId) {
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .get()
+            .insecure()
+            .silent()
+            .withUrl("${url}/assets/findAllByGroupAndName/${groupId}/${name}")
+            .getRequest()
+
+    return request
+}
+
+def createWorkflowAsset(String name, String description, String groupId, String projectId, String executionEngine) {
+    String body = "{\"workflowAsset\":{\"name\":\"${name}\",\"description\":\"${description}\",\"groupId\":\"${groupId}\",\"projectId\":\"${projectId}\",\"executionEngine\":\"${executionEngine}\"}}"
+
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .silent()
+            .withUrl("${url}/assets")
+            .getRequest()
+
+    return request
+}
+
 return this

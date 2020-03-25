@@ -212,7 +212,7 @@ def createGroup(String name) {
     return request
 }
 
-def findAssetByNameAndGroup(String assetName, String groupId) {
+def findAssetByNameAndGroup(String name, String groupId) {
     String request = new HttpRequest()
             .withAuth(auth)
             .get()

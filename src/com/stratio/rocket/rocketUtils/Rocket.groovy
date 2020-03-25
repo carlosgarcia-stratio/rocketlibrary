@@ -155,7 +155,7 @@ def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
    def request = api.findWorkflowVersions(workflowMasterId)
    def response = http.executeWithOutput(request)
    workflowIds = http.handleJsonResponse(response, "Error finding workflow versionID for workflow ${workflowMasterId}")
-
+   println(workflowIds)
    workflowIdsJson = readJSON text: workflowIds
    def id = workflowIdsJson.find { it.value == targetVersion }
    return id

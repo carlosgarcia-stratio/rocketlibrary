@@ -58,6 +58,7 @@ def validateWorkflow() {
            workflow.getWorkflowType(), workflow.getVersion(), workflow.getGroup(), workflow.getTags(),
            workflow.getWorkflowMasterId(), workflow.getProjectId())
    def response = http.executeWithOutput(request)
+   println(response)
    http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
 }
 

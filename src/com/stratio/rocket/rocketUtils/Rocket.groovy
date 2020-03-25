@@ -143,9 +143,9 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
    }
 
    if(!workflow) {
-      response = api.createWorkflowAsset(name, description, groupId, projectId, executionEngine)
+      request = api.createWorkflowAsset(name, description, groupId, projectId, executionEngine)
       response = http.executeWithOutput(request)
-      workflow = http.handleJsonResponse(response, "Error finding asset name ${name} in group ${groupId}")
+      workflow = http.handleJsonResponse(response, "Error creating asset name ${name} in group ${groupId}")
    }
    def workflowJson = readJSON text: workflow
    return workflowJson.workflowAsset.id

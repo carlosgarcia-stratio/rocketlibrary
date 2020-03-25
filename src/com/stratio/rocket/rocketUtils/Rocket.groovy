@@ -64,7 +64,7 @@ def validateWorkflow() {
       if(responseJson.messages) {
          error "Error validating workflow ${workflow.getId()}: ${responseJson.messages.toString()}"
       } else {
-         error "Error validating workflow ${workflow.getId()}
+         error "Error validating workflow ${workflow.getId()}"
       }
    }
 }

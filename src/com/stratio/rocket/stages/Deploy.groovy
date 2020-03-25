@@ -19,6 +19,7 @@ def execute() {
     //Create if project exist
     def project = rocket.pro.createProjectIfNotExist(rocket.dev.project.getName(), rocket.dev.project.getDescription())
     def projectJson = readJSON text: project
+    println(projectJson)
     rocket.pro.project.init(project, projectJson)
 
     def group = rocket.pro.createFoldersIfNotExist(rocket.pro.project.getName(), rocket.dev.workflow.getGroupName())

@@ -92,13 +92,13 @@ def createProjectIfNotExist(String projectName, String description) {
       log.info "Project ${projectName} found in ${api.url}"
    }
 
-   println(project)
    return project
 }
 
 def createFoldersIfNotExist(String projectName, String folders) {
 
    def folderList = folders.split("/").findAll{ !(it == '' || it == 'home' || it == projectName) }
+   println(folderList)
    def folder = ""
    def group = null
    folderList.each { f ->
@@ -111,7 +111,9 @@ def createFoldersIfNotExist(String projectName, String folders) {
 
 def createFolderIfNotExist(String projectName, String folder) {
 
+   println(folder)
    def groupName = "/home/$projectName$folder"
+   println(groupName)
 
    def request = api.findGroupByName(groupName)
    def response = http.executeWithOutput(request)

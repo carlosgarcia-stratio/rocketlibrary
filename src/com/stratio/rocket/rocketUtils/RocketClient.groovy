@@ -77,6 +77,23 @@ def updateWorkflowReleaseExecutionState(String releaseId, String state) {
     return request
 }
 
+def setReadOnly(String workflowId, Boolean readOnly) {
+
+    String body = "{\"assetVersionId\":\"${workflowId}\",\"readOnly\":${readOnly}"
+
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .post()
+            .withHeader("Content-Type:application/json")
+            .withBody(body)
+            .insecure()
+            .silent()
+            .withUrl("${url}/assets/assetVersion/setReadOnly")
+            .getRequest()
+
+    return request
+}
+
 def updateWorkflowReleaseWorkflowState(String releaseId, String state) {
 
     String body = "{\"releaseId\":\"${releaseId}\",\"workflowState\":\"${state}\"}"

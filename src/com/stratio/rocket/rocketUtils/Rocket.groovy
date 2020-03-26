@@ -181,6 +181,23 @@ def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipeli
    if(id) return id else error "Error creating or updating version for workflow ${workflowMasterId}"
 }
 
+def release(String state){
+   def request = api.updateWorkflowReleaseWorkflowState(release.getId(), state)
+   def response = http.executeWithOutput(request)
+   http.handleJsonErrorResponse(response, "Error setting release state to ${state}")
+}
+
+def lock() {
+   def request = api.setReadOnly(workflow.getId(), true)
+   def response = http.executeWithOutput(request)
+   http.handleJsonErrorResponse(response, "Error setting workflow version ${workflow.getId()} as readOnly")
+}
+
+def releaseAndLock(String state) {
+   release(state)
+   lock()
+}
+
 def init(String env, String url) {
    def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)
    def tenant = context.getFromPropsOrEnv(RocketConstants.ROCKET_TENANT[env])

@@ -6,7 +6,7 @@ class Flows implements Serializable {
         Stages.CHECKOUT,
         Stages.VERIFY,
         Stages.DEPLOY,
-        Satges.RELEASE
+        Stages.RELEASE
     ]
 
     static def FLOW_DEV_PRE_PRO = [

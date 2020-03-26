@@ -88,7 +88,7 @@ def setReadOnly(String workflowId, Boolean readOnly) {
             .withBody(body)
             .insecure()
             .silent()
-            .withUrl("${url}/assets/assetVersion/setReadOnly")
+            .withUrl("${url}/release/assetVersion/setReadOnly")
             .getRequest()
 
     return request

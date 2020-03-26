@@ -47,6 +47,10 @@ def execute() {
             rocket.dev.workflow.getWorkflowType()
     )
 
+    //Get Workflow version
+    def wfJson = rocket.pro.getWorkflow(workflowVersionId)
+    rocket.pro.workflow.init(wfJson)
+
     message = "Workflow deployed with id ${workflowVersionId} successfully"
 }
 

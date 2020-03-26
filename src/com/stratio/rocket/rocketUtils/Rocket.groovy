@@ -195,14 +195,19 @@ def release(String state){
 }
 
 def lock() {
+   println("3333333333333333")
    def request = api.setReadOnly(workflow.getId(), true)
+   println("4444444444444")
    def response = http.executeWithOutput(request)
+   println("5555555555555555")
    http.handleJsonErrorResponse(response, "Error setting workflow version ${workflow.getId()} as readOnly")
 }
 
 def releaseAndLock(String state) {
    release(state)
+   println("111111111111")
    lock()
+   println("22222222222222")
 }
 
 def init(String env, String url) {

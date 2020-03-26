@@ -197,7 +197,7 @@ def release(String state){
 def lock() {
    def request = api.setReadOnly(workflow.getId(), true)
    def response = http.executeWithOutput(request)
-   println(response)
+   //TODO: handle string responses (assert(response=="OK"))
    http.handleJsonErrorResponse(response, "Error setting workflow version ${workflow.getId()} as readOnly")
 }
 

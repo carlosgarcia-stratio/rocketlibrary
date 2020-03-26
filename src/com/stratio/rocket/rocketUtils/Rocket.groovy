@@ -131,6 +131,13 @@ def createFolderIfNotExist(String projectName, String folder) {
    return group
 }
 
+def getGroup(String groupId) {
+   def request = api.findGroupById(groupId)
+   def response = http.executeWithOutput(request)
+   groupJson = http.handleJsonResponse(response, "Error finding group for id ${groupId}")
+   return groupJson
+}
+
 def createWorkflowIfNotExist(String name, String description, String groupId, String projectId, String executionEngine) {
 
    def request = api.findAssetByNameAndGroup(name, groupId)

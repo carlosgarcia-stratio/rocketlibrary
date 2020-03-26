@@ -22,6 +22,9 @@ def execute() {
 
     //Create folders if not exist
     def groupJson = rocket.pro.createFoldersIfNotExist(rocket.pro.project.getName(), rocket.dev.workflow.getGroupName())
+    if(groupJson) {
+        groupJson = rocket.pro.getGroup(rocket.pro.project.getGroupId())
+    }
     rocket.pro.group.init(groupJson)
 
     //Create workflow if not exist

@@ -284,7 +284,20 @@ def findWorkflowVersions(String workflowId) {
             .getRequest()
 
     return request
+}
 
+
+def findGroupById(String groupId) {
+
+    String request = new HttpRequest()
+            .withAuth(auth)
+            .get()
+            .insecure()
+            .silent()
+            .withUrl("${url}/groups/findById/${groupId}")
+            .getRequest()
+
+    return request
 }
 
 return this

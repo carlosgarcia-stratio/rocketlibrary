@@ -1,5 +1,6 @@
 package com.stratio.rocket.flow
 
+import com.stratio.rocket.constants.FlowConstants
 import com.stratio.rocket.stages.PreBuild
 import com.stratio.rocket.stages.PostBuild
 import com.stratio.rocket.stages.PreStage
@@ -13,7 +14,7 @@ def execute(flow) {
                 executeStage(s)
             }
         } catch(Exception e) {
-            context.buildStatus = "FAILURE"
+            context.buildStatus = FlowConstants.FAILURE
             context.error = e.getMessage()
         } finally {
             new PostBuild().executeStage()
@@ -40,7 +41,7 @@ def handleStageError(stage, Exception e) {
     def errorMsg = "Error executing stage ${stage.name}: ${e.getMessage()}"
     log.error errorMsg
     stage.message = errorMsg
-    stage.status = "FAILED"
+    stage.status = FlowConstants.FAILURE
     error errorMsg
 }
 

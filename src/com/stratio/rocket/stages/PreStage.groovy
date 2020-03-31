@@ -1,6 +1,6 @@
 package com.stratio.rocket.stages
 
-import com.stratio.rocket.rocketUtils.RocketConstants
+import com.stratio.rocket.constants.RocketConstants
 
 def executeStage(s) {
 

@@ -1,15 +1,38 @@
-def info(message) {
-    echo "INFO: ${message}"
+import groovy.transform.Field
+
+@Field static ArrayList<String> maskList = []
+
+void debug(message) {
+    if(context.logLevel in ["DEBUG"]) mask(message) { maskedMessage ->
+        echo "DEBUG: ${maskedMessage}"
+    }
 }
 
-def warning(message) {
-    echo "WARNING: ${message}"
+void info(message) {
+    if(context.logLevel in ["DEBUG", "INFO"]) mask(message) { maskedMessage ->
+        echo "INFO: ${maskedMessage}"
+    }
 }
 
-def error(message) {
-    echo "ERROR: ${message}"
+void warning(message) {
+    if(context.logLevel in ["DEBUG", "INFO", "WARN"]) mask(message) { maskedMessage ->
+        echo "WARNING: ${maskedMessage}"
+    }
 }
 
-def debug(message) {
-    echo "DEBUG: ${message}"
+void error(message) {
+    if(context.logLevel in ["DEBUG", "INFO", "WARN", "ERROR"]) mask(message) { maskedMessage ->
+        echo "ERROR: ${maskedMessage}"
+    }
+}
+
+
+void mask(String message, Closure cl) {
+
+    String maskedMessage = message
+    maskList.each { m ->
+        maskedMessage = maskedMessage.replace(m, "****")
+    }
+
+    cl(maskedMessage)
 }

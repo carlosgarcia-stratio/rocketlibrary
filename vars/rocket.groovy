@@ -1,14 +1,14 @@
-#!groovy
 
 import groovy.transform.Field
-import com.stratio.rocket.rocketUtils.RocketConstants
-import com.stratio.rocket.rocketUtils.Rocket
 
-@Field static def dev = new Rocket()
-@Field static def pre = new Rocket()
-@Field static def pro = new Rocket()
+import com.stratio.rocket.constants.RocketConstants
+import com.stratio.rocket.api.Rocket
 
-def initInstances() {
+@Field static Rocket dev = new Rocket()
+@Field static Rocket pre = new Rocket()
+@Field static Rocket pro = new Rocket()
+
+void initInstances() {
 
     def dev_url = context.getFromPropsOrEnv(RocketConstants.ROCKET_API_URL_DEV)
     if (dev_url) {

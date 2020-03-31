@@ -1,4 +1,4 @@
-package com.stratio.rocket.rocketUtils
+package com.stratio.rocket.model
 
 class Project implements Serializable {
 

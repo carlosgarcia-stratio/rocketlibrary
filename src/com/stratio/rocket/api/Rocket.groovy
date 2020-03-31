@@ -1,13 +1,14 @@
-package com.stratio.rocket.rocketUtils
+package com.stratio.rocket.api
 
 import groovy.transform.Field
+
 import com.stratio.rocket.http.HttpClient
-import com.stratio.rocket.rocketUtils.RocketConstants
-import com.stratio.rocket.rocketUtils.RocketClient
-import com.stratio.rocket.rocketUtils.Workflow
-import com.stratio.rocket.rocketUtils.Project
-import com.stratio.rocket.rocketUtils.Group
-import com.stratio.rocket.rocketUtils.Release
+import com.stratio.rocket.constants.RocketConstants
+import com.stratio.rocket.constants.AuthConstants
+import com.stratio.rocket.model.Workflow
+import com.stratio.rocket.model.Project
+import com.stratio.rocket.model.Group
+import com.stratio.rocket.model.Release
 
 @Field def api = new RocketClient()
 @Field def workflow = new Workflow()
@@ -18,42 +19,55 @@ import com.stratio.rocket.rocketUtils.Release
 @Field def isActive = false
 
 def getWorkflow(String workflowId) {
+   log.debug "getWorkflow ${workflowId} in ${api.url}"
+
    def request = api.getWorkflow(workflowId)
    def response = http.executeWithOutput(request)
-   return http.handleJsonResponse(response, "Error retrievieng workflow version ${workflowId}")
+   return http.handleJsonResponse(response, "Error retrieving workflow version ${workflowId}")
 }
 
 def getProject(String projectId) {
+   log.debug "getProject ${projectId} in ${api.url}"
+
    def request = api.getProject(projectId)
    def response = http.executeWithOutput(request)
    return http.handleJsonResponse(response, "Error retrievieng project ${projectId}")
 }
 
 def getRelease(String releaseId){
+   log.debug "getRelease ${releaseId} in ${api.url}"
+
    def request = api.getWorkflowRelease(releaseId)
    def response = http.executeWithOutput(request)
    return http.handleJsonResponse(response, "Error retrievieng workflow release ${releaseId}")
 }
 
 def updateReleaseExecutionState(String state){
+   log.debug "updateReleaseExecutionState ${state} in ${api.url}"
+
    def request = api.updateWorkflowReleaseExecutionState(release.getId(), state)
    def response = http.executeWithOutput(request)
    http.handleJsonResponse(response, "Error updating release execution state ${releaseId}")
 }
 
 def addReleaseInfo(String key, String info){
+   log.debug "addReleaseInfo ${key}:${info} in ${api.url}"
+
    def request = api.addWorkflowReleaseInfo(release.getId(), key, info)
    def response = http.executeWithOutput(request)
    http.handleJsonResponse(response, "Error adding release info for release ${releaseId}")
 }
 
 def addReleaseStageState(String name, String state, String message){
+   log.debug "addReleaseStageState ${name}, ${state}, ${message} in ${api.url}"
+
    def request = api.addWorkflowReleaseStage(release.getId(), name, state, message)
    def response = http.executeWithOutput(request)
    http.handleJsonResponse(response, "Error adding release stage state for release ${releaseId}")
 }
 
 def validateWorkflow() {
+   log.debug "validateWorkflow ${workflow.getId()} in ${api.url}"
    
    def request = api.validateWorkflow(workflow.getId(), workflow.getName(), workflow.getDescription(),
            workflow.getSettings(), workflow.getPipelineGraph(), workflow.getExecutionEngine(),
@@ -72,12 +86,16 @@ def validateWorkflow() {
 }
 
 def createProject(String name, String description) {
+   log.debug "createProject ${name}, ${description} in ${api.url}"
+
    def request = api.createProject(name, description)
    def response = http.executeWithOutput(request)
    http.handleJsonResponse(response, "Error creating project ${name} in ${api.url}")
 }
 
 def createProjectIfNotExist(String projectName, String description) {
+   log.debug "createProjectIfNotExist ${projectName}, ${description} in ${api.url}"
+
    def request = api.findProjectByName(projectName)
    def response = http.executeWithOutput(request)
    def project = null
@@ -97,6 +115,7 @@ def createProjectIfNotExist(String projectName, String description) {
 }
 
 def createFoldersIfNotExist(String projectName, String folders) {
+   log.debug "createFoldersIfNotExist ${projectName}, ${folders} in ${api.url}"
 
    def folderList = folders.split("/").findAll{ !(it == '' || it == 'home' || it == projectName) }
    def folder = ""
@@ -110,6 +129,7 @@ def createFoldersIfNotExist(String projectName, String folders) {
 }
 
 def createFolderIfNotExist(String projectName, String folder) {
+   log.debug "createFolderIfNotExist ${projectName}, ${folder} in ${api.url}"
 
    def groupName = "/home/$projectName$folder"
 
@@ -132,6 +152,8 @@ def createFolderIfNotExist(String projectName, String folder) {
 }
 
 def getGroup(String groupId) {
+   log.debug "getGroup ${groupId} in ${api.url}"
+
    def request = api.findGroupById(groupId)
    def response = http.executeWithOutput(request)
    groupJson = http.handleJsonResponse(response, "Error finding group for id ${groupId}")
@@ -139,6 +161,7 @@ def getGroup(String groupId) {
 }
 
 def createWorkflowIfNotExist(String name, String description, String groupId, String projectId, String executionEngine) {
+   log.debug "createWorkflowIfNotExist ${name}, ${description}, ${groupId}, ${projectId}, ${executionEngine} in ${api.url}"
 
    def request = api.findAssetByNameAndGroup(name, groupId)
    def response = http.executeWithOutput(request)
@@ -159,6 +182,8 @@ def createWorkflowIfNotExist(String name, String description, String groupId, St
 }
 
 def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
+   log.debug "getWorkflowVersionId ${workflowMasterId}-v${targetVersion} in ${api.url}"
+
    def request = api.findWorkflowVersions(workflowMasterId)
    def response = http.executeWithOutput(request)
    workflowIdsJson = http.handleJsonResponse(response, "Error finding workflow versionID for workflow ${workflowMasterId}")
@@ -168,6 +193,7 @@ def getWorkflowVersionId(String workflowMasterId, Long targetVersion) {
 }
 
 def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipelineGraph,String tags, String settings, String workflowMasterId, String workflowType) {
+   log.debug "createOrUpdateWorkflowVersion v${version} in ${api.url}"
 
    String workflowVersionId = getWorkflowVersionId(workflowMasterId, version)
    def request
@@ -189,12 +215,16 @@ def createOrUpdateWorkflowVersion(Long version, String uiSettings, String pipeli
 }
 
 def release(String state){
+   log.debug "release ${state} in ${api.url}"
+
    def request = api.updateWorkflowReleaseWorkflowState(release.getId(), state)
    def response = http.executeWithOutput(request)
    http.handleJsonResponse(response, "Error setting release state to ${state}")
 }
 
 def lock() {
+   log.debug "lock ${workflow.getId()} in ${api.url}"
+
    def request = api.setReadOnly(workflow.getId(), true)
    def response = http.executeWithOutput(request)
    //TODO: handle string responses (assert(response=="OK"))
@@ -202,18 +232,20 @@ def lock() {
 }
 
 def releaseAndLock(String state) {
+   log.debug "releaseAndLock ${state} in ${api.url}"
+
    release(state)
    lock()
 }
 
 def init(String env, String url) {
-   def auth_method = context.getFromPropsOrEnv(RocketConstants.ROCKET_AUTH_METHOD[env], RocketConstants.ROCKET_AUTH_USER_PASS)
+   def auth_method = context.getFromPropsOrEnv(AuthConstants.ROCKET_AUTH_METHOD[env], AuthConstants.ROCKET_AUTH_USER_PASS)
    def tenant = context.getFromPropsOrEnv(RocketConstants.ROCKET_TENANT[env])
    def authProps = [authMethod: auth_method,
                     url: url,
-                    credentialsId: RocketConstants.ROCKET_AUTH_CREDENTIALS[env],
+                    credentialsId: AuthConstants.ROCKET_AUTH_CREDENTIALS[env],
                     tenant: tenant,
-                    tokenPath: RocketConstants.AUTH_TOKEN_TEMP_PATH[env]
+                    tokenPath: AuthConstants.AUTH_TOKEN_TEMP_PATH[env]
    ]
    def auth = getAuth(authProps)
    api.initialize(url, auth)
@@ -230,18 +262,18 @@ def initRelease(String releaseId) {
 }
 
 def getAuth(Map props) {
-   if (props.authMethod == RocketConstants.ROCKET_AUTH_USER_PASS) {
+   if (props.authMethod == AuthConstants.ROCKET_AUTH_USER_PASS) {
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "${props.credentialsId}", usernameVariable: 'USER', passwordVariable: 'PASS']]) {
-         def exists = fileExists RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH
+         def exists = fileExists AuthConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH
          if(!exists) {
-            def authScript = libraryResource RocketConstants.AUTH_TOKEN_RESOURCE_PATH
-            writeFile file: RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH, text: authScript
+            def authScript = libraryResource AuthConstants.AUTH_TOKEN_RESOURCE_PATH
+            writeFile file: AuthConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH, text: authScript
          }
-         sh(script: "bash ${RocketConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath}")
+         sh(script: "bash ${AuthConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath}")
          def token = sh(script: "cat ${props.tokenPath}", returnStdout: true).trim()
          return "-H 'Cookie: user=${token}'"
       }
-   } else if(props.authMethod == RocketConstants.ROCKET_AUTH_MUTUAL_TLS) {
+   } else if(props.authMethod == AuthConstants.ROCKET_AUTH_MUTUAL_TLS) {
       error "Auth Method not implemented yet"
    } else {
       log.debug "No auth for ${props.url}"

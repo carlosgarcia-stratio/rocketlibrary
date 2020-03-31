@@ -3,6 +3,7 @@ package com.stratio.rocket.flow
 def create(){
     try {
         def flowBuildKeys = selectFlowType()
+        log.debug "Flows to execute: ${flowBuildKeys}"
         def flowStages = []
         flowBuildKeys.each { key ->
             flowStages << Stages.instances[key]
@@ -23,8 +24,8 @@ def String selectFlowType() {
     } else if(rocket.dev.isActive && rocket.pro.isActive) {
         flow = Flows.FLOW_KEY_DEV_PRO
     } else {
-        log.error("No flow found for active instances")
-        error("No flow found for active instances")
+        log.error "No flow found for active instances"
+        error "No flow found for active instances"
     }
     return Flows.FLOWS[flow]
 }

@@ -1,17 +1,29 @@
 package com.stratio.rocket.http
 
+import com.stratio.rocket.constants.HttpConstants
 
 def execute(String command) {
-    sh(script: '#!/bin/sh -e\n' + command)
+
+    String mutedCmd = HttpConstants.MUTED + command
+    log.debug command
+    sh(script: mutedCmd)
 }
 
 def executeWithOutput(String command) {
-    def response = sh(script: '#!/bin/sh -e\n' + command, returnStdout: true)
+
+    String mutedCmd = HttpConstants.MUTED + command
+    log.debug command
+    def response = sh(script: mutedCmd, returnStdout: true)
+    log.debug response
     return response
 }
 
 def executeWithStatus(String command) {
-    def response = sh(script: '#!/bin/sh -e\n' + command, returnStatus: true)
+
+    String mutedCmd = HttpConstants.MUTED + command
+    log.debug command
+    def response = sh(script: mutedCmd, returnStatus: true)
+    log.debug response
     return response
 }
 

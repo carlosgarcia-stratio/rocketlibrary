@@ -1,13 +1,12 @@
-package com.stratio.rocket.rocketUtils
+package com.stratio.rocket.api
 
-import com.stratio.rocket.http.HttpRequest
 import groovy.transform.Field
+import com.stratio.rocket.http.HttpRequest
 
-@Field def url
-@Field def auth = ""
+@Field static def url = ""
+@Field static def auth = ""
 
 def initialize(String aUrl, String authProps) {
-
     url = aUrl
     auth = authProps
 }

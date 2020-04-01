@@ -17,7 +17,7 @@ def getFromPropsOrEnv(String key, String defaultValue = null) {
 }
 
 def withContext(Closure cl) {
-    logLevel = context.getFromPropsOrEnv(FlowConstants.LOG_LEVEL_ENV_VAR, FlowConstants.DEFAULT_LOG_LEVEL)
+    logLevel = getFromPropsOrEnv(FlowConstants.LOG_LEVEL_ENV_VAR, FlowConstants.DEFAULT_LOG_LEVEL)
     log.logLevel = logLevel
     log.withLogger {
         cl()

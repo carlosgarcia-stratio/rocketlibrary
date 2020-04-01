@@ -2,8 +2,9 @@ package com.stratio.rocket.flow
 
 import com.stratio.rocket.constants.FlowConstants
 
-class Context implements Serializable {
+class FlowContext implements Serializable {
 
     String buildStatus = FlowConstants.SUCCESS
     String error = ""
+    String node = FlowConstants.DEFAULT_NODE
 }

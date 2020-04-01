@@ -2,15 +2,19 @@
 import groovy.transform.Field
 
 import com.stratio.rocket.constants.FlowConstants
-import com.stratio.rocket.flow.Context
+import com.stratio.rocket.flow.FlowContext
 
 @Field static def props = [:]
-@Field static Context ctx = new Context()
+@Field static FlowContext ctx = new FlowContext()
 
 def init(Map p) {
     props << p
     logLevel = getFromPropsOrEnv(FlowConstants.LOG_LEVEL_ENV_VAR, FlowConstants.DEFAULT_LOG_LEVEL)
     log.logLevel = logLevel
+}
+
+def initNode(Map p) {
+    ctx.node = p.containsKey(FlowConstants.NODE_ENV_VAR) ? p[FlowConstants.NODE_ENV_VAR] : FlowConstants.DEFAULT_NODE
 }
 
 def getFromPropsOrEnv(String key, String defaultValue = null) {

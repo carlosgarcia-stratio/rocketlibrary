@@ -7,7 +7,8 @@ import com.stratio.rocket.stages.PreStage
 import com.stratio.rocket.stages.PostStage
 
 def execute(flow) {
-    node{
+
+    node(context.ctx.node){
         try {
             new PreBuild().executeStage()
             flow.each { s ->
@@ -18,7 +19,7 @@ def execute(flow) {
             context.ctx.error = e.getMessage()
         } finally {
             new PostBuild().executeStage()
-            currentBuild.result = context.buildStatus
+            currentBuild.result = context.ctx.buildStatus
         }
     }
 }

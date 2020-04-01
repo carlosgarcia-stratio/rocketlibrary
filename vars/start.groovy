@@ -2,7 +2,8 @@
 
 def call(Map props = [:]) {
 
-    node{
+    context.initNode(props)
+    node(context.ctx.node){
         context.init(props)
         rocket.initInstances()
     }

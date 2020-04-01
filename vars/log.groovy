@@ -40,7 +40,5 @@ void mask(String message, Closure cl) {
 }
 
 def withLogger(Closure cl) {
-    println context.buildStatus
     cl()
-    println context.buildStatus
 }

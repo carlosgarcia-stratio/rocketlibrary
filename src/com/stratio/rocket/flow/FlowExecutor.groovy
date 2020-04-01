@@ -17,7 +17,7 @@ def execute(flow) {
             context.buildStatus = FlowConstants.FAILURE
             context.error = e.getMessage()
         } finally {
-            new PostBuild().executeStage()
+            new PostBuild().executeStage(context.buildStatus)
             currentBuild.result = context.buildStatus
         }
     }

@@ -29,6 +29,8 @@ def addWorkflowReleaseStage(String releaseId, String name, String state, String 
 
     String body = "{\"releaseId\":\"${releaseId}\",\"name\":\"${name}\",\"state\":\"${state}\",\"message\":\"${message}\"}"
 
+    println body
+
     String request = new HttpRequest()
             .withAuth(auth)
             .post()

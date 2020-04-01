@@ -6,5 +6,7 @@ def call(Map props = [:]) {
         context.init(props)
         rocket.initInstances()
     }
-    flow.executor.execute(flow.builder.create())
+    context.withContext {
+        flow.executor.execute(flow.builder.create())
+    }
 }

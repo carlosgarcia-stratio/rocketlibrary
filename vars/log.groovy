@@ -1,27 +1,29 @@
+import com.stratio.rocket.constants.FlowConstants
 import groovy.transform.Field
 
 @Field static ArrayList<String> maskList = []
+@Field static String logLevel = FlowConstants.DEFAULT_LOG_LEVEL
 
 void debug(message) {
-    if(context.logLevel in ["DEBUG"]) mask(message) { maskedMessage ->
+    if(logLevel in ["DEBUG"]) mask(message) { maskedMessage ->
         echo "DEBUG: ${maskedMessage}"
     }
 }
 
 void info(message) {
-    if(context.logLevel in ["DEBUG", "INFO"]) mask(message) { maskedMessage ->
+    if(logLevel in ["DEBUG", "INFO"]) mask(message) { maskedMessage ->
         echo "INFO: ${maskedMessage}"
     }
 }
 
 void warning(message) {
-    if(context.logLevel in ["DEBUG", "INFO", "WARN"]) mask(message) { maskedMessage ->
+    if(logLevel in ["DEBUG", "INFO", "WARN"]) mask(message) { maskedMessage ->
         echo "WARNING: ${maskedMessage}"
     }
 }
 
 void error(message) {
-    if(context.logLevel in ["DEBUG", "INFO", "WARN", "ERROR"]) mask(message) { maskedMessage ->
+    if(logLevel in ["DEBUG", "INFO", "WARN", "ERROR"]) mask(message) { maskedMessage ->
         echo "ERROR: ${maskedMessage}"
     }
 }
@@ -35,4 +37,8 @@ void mask(String message, Closure cl) {
     }
 
     cl(maskedMessage)
+}
+
+def withLogger(Closure cl) {
+    cl()
 }

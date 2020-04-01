@@ -14,9 +14,7 @@ def execute(flow) {
                 executeStage(s)
             }
         } catch(Exception e) {
-            println context.buildStatus
             context.buildStatus = FlowConstants.FAILURE
-            println context.buildStatus
             context.error = e.getMessage()
         } finally {
             new PostBuild().executeStage()
@@ -45,9 +43,7 @@ def handleStageError(stage, Exception e) {
     stage.message = errorMsg
     stage.status = FlowConstants.FAILURE
     context.error = errorMsg
-    println context.buildStatus
     context.buildStatus = FlowConstants.FAILURE
-    println context.buildStatus
     error errorMsg
 }
 

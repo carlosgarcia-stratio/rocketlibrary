@@ -9,7 +9,6 @@ import com.stratio.rocket.constants.FlowConstants
 
 def init(Map p) {
     props << p
-
 }
 
 def getFromPropsOrEnv(String key, String defaultValue = null) {

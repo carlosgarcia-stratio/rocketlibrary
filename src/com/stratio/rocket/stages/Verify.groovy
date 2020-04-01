@@ -16,9 +16,9 @@ def executeStage() {
     //Check QR for that execution
 
     //Validate workflow (get context from last execution)
-    log.info "Validating workflow version ${context.dev.workflow.getId()} with default conetxt"
+    log.info "Validating workflow version ${rocket.dev.workflow.getId()} with default conetxt"
     rocket.dev.validateWorkflow()
-    log.info "Workflow version ${context.dev.workflow.getId()} validated with default conetxt"
+    log.info "Workflow version ${rocket.dev.workflow.getId()} validated with default conetxt"
 
     message = "Workflow version ${rocket.dev.workflow.getId()} validated successfully"
     log.info("Stage ${name} finished successfully")

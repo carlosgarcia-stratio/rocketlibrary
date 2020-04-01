@@ -4,7 +4,7 @@ import groovy.transform.Field
 import com.stratio.rocket.constants.FlowConstants
 
 @Field static def props = [:]
-@Field static String buildStatus = FlowConstants.SUCCESS
+@Field String buildStatus = FlowConstants.SUCCESS
 @Field static String error = ""
 @Field static String logLevel = FlowConstants.DEFAULT_LOG_LEVEL
 

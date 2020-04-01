@@ -78,10 +78,20 @@ def validateWorkflow() {
    http.handleJsonResponse(response, "Error validating workflow version ${workflow.getId()}")
    def responseJson = readJSON text: response
    if(!responseJson.valid) {
+      String errorMsg = "Error validating workflow ${workflow.getId()}"
       if(responseJson.messages) {
-         error "Error validating workflow ${workflow.getId()}: ${JsonOutput.toJson(responseJson.messages.toString())}"
+         ArrayList<String> errors = []
+         responseJson.messages.each { entry ->
+            String singleError = ""
+            if(entry.step && entry.subStep) singleError += "(${entry.step}-${entry.subStep})"
+            if(entry.step && !entry.subStep) singleError += "(${entry.step})"
+            if(entry.message) singleError += " ${entry.message}"
+            errors.add(singleError)
+         }
+         errorMsg += ": ${errors.join(", ")}"
+         error errorMsg
       } else {
-         error "Error validating workflow ${workflow.getId()}"
+         error errorMsg
       }
    }
 }

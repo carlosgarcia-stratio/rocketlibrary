@@ -10,7 +10,7 @@ import com.stratio.rocket.flow.FlowContext
 def init(Map p) {
     props << p
     logLevel = getFromPropsOrEnv(FlowConstants.LOG_LEVEL_ENV_VAR, FlowConstants.DEFAULT_LOG_LEVEL)
-    log.logLevel = logLevel
+    ctx.logLevel = logLevel
 }
 
 def initNode(Map p) {

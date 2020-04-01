@@ -1,5 +1,6 @@
 package com.stratio.rocket.api
 
+import groovy.json.JsonOutput
 import groovy.transform.Field
 
 import com.stratio.rocket.http.HttpClient
@@ -68,7 +69,7 @@ def addReleaseStageState(String name, String state, String message){
 
 def validateWorkflow() {
    log.debug "validateWorkflow ${workflow.getId()} in ${api.url}"
-   
+
    def request = api.validateWorkflow(workflow.getId(), workflow.getName(), workflow.getDescription(),
            workflow.getSettings(), workflow.getPipelineGraph(), workflow.getExecutionEngine(),
            workflow.getWorkflowType(), workflow.getVersion(), workflow.getGroup(), workflow.getTags(),
@@ -78,7 +79,7 @@ def validateWorkflow() {
    def responseJson = readJSON text: response
    if(!responseJson.valid) {
       if(responseJson.messages) {
-         error "Error validating workflow ${workflow.getId()}: ${responseJson.messages.toString()}"
+         error "Error validating workflow ${workflow.getId()}: ${JsonOutput.toJson(responseJson.messages.toString())}"
       } else {
          error "Error validating workflow ${workflow.getId()}"
       }

@@ -4,7 +4,7 @@ import groovy.transform.Field
 import com.stratio.rocket.constants.FlowConstants
 import com.stratio.rocket.flow.Stages
 
-@Field def name = Stages.VERIFY
+@Field def name = Stages.VALIDATE
 @Field def status = FlowConstants.SUCCESS
 @Field def message = ""
 

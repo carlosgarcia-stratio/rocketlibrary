@@ -42,6 +42,8 @@ def handleStageError(stage, Exception e) {
     log.error errorMsg
     stage.message = errorMsg
     stage.status = FlowConstants.FAILURE
+    context.error = errorMsg
+    context.buildStatus = FlowConstants.FAILURE
     error errorMsg
 }
 

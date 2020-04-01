@@ -1,4 +1,4 @@
-import com.stratio.rocket.constants.FlowConstants
+
 import groovy.transform.Field
 
 @Field static ArrayList<String> maskList = []

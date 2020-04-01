@@ -282,6 +282,7 @@ def getAuth(Map props) {
          }
          sh(script: "bash ${AuthConstants.AUTH_TOKEN_SCRIPT_TEMP_PATH} ${props.url} ${USER} ${PASS} ${props.tenant} ${props.tokenPath}")
          def token = sh(script: "cat ${props.tokenPath}", returnStdout: true).trim()
+         log.maskList.add(token)
          return "-H 'Cookie: user=${token}'"
       }
    } else if(props.authMethod == AuthConstants.ROCKET_AUTH_MUTUAL_TLS) {

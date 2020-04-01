@@ -5,6 +5,7 @@ import com.stratio.rocket.constants.RocketConstants
 
 def executeStage() {
 
+    println(context.buildStatus)
     if(context.buildStatus == FlowConstants.FAILURE) {
         rocket.dev.updateReleaseExecutionState(RocketConstants.RELEASE_FAILED)
         rocket.dev.addReleaseInfo("Duration", "${currentBuild.duration/1000} seconds")

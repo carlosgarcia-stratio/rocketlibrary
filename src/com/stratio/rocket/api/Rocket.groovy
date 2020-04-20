@@ -128,12 +128,14 @@ def createProjectIfNotExist(String projectName, String description) {
 def createFoldersIfNotExist(String projectName, String folders) {
    log.debug "createFoldersIfNotExist ${projectName}, ${folders} in ${api.url}"
 
-   def folderList = folders.split("/").findAll{ !(it == '' || it == 'home' || it == projectName.toLowerCase()) }
+   def normalizedProjectName = projectName.toLowerCase()
+
+   def folderList = folders.split("/").findAll{ !(it == '' || it == 'home' || it == normalizedProjectName) }
    def folder = ""
    def group = null
    folderList.each { f ->
       folder +=  "/$f"
-      group = createFolderIfNotExist(projectName, folder)
+      group = createFolderIfNotExist(normalizedProjectName, folder)
    }
 
    return group

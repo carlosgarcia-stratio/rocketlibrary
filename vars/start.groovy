@@ -2,6 +2,6 @@
 
 def call(Map props = [:]) {
 
-    println("Rocket Flow")
+    doWorkflow2envs(props)
 
 }

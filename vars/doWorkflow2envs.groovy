@@ -2,12 +2,12 @@
 
 def call(Map props = [:]) {
 
-    node {
+    node("maven") {
         println("Rocket flow for workflow 2 envs")
 
 
         stage('Checkout Workflow') {
-            sh 'echo "Checkout workflow"'
+            sh 'mvn --version'
         }
 
         stage('QA') {

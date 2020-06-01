@@ -2,7 +2,7 @@
 
 def call(Map props = [:]) {
 
-    node() {
+    node("rocket") {
         println("Rocket flow for workflow 2 envs")
 
         stage('Checkout Workflow') {

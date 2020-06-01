@@ -7,15 +7,15 @@ def call(Map props = [:]) {
 
 
         stage('Checkout Workflow') {
-            sh 'Checkwork workflow'
+            sh 'echo "Checkout workflow"'
         }
 
         stage('QA') {
-            sh 'QA'
+            sh 'echo "QA"'
         }
 
         stage('Deploy') {
-            sh 'Deploy'
+            sh 'echo "Deploy"'
         }
     }
 

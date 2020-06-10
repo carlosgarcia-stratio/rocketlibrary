@@ -11,7 +11,7 @@ def call(Map props = [:]) {
         def ROCKET_COOKIE = ""
         def ROCKET_URL_PROD = props["ROCKET_API_URL_PRO"]
         def ROCKET_COOKIE_PROD = ""
-        def ASSET_VERSION_ID = props["workflowId"]
+        def ASSET_VERSION_ID = props["assetVersionId"]
         def RELEASE_ID = props["releaseId"]
 
         stage('Init release') {

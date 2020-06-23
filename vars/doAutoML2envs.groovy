@@ -35,7 +35,7 @@ def call(Map props = [:]) {
 
         stage('Export asset') {
             sh "mvn com.stratio.rocket:rocket-maven-plugin:1.1.0-SNAPSHOT:exportAsset -DrocketBaseUrl=$ROCKET_URL -Dcookie=$ROCKET_COOKIE -DassetVersionId=$ASSET_VERSION_ID -DreleaseId=$RELEASE_ID -DexportPath=$ARCHIVE_PATH"
-            archiveArtifacts artifacts: $ARCHIVE_PATH
+            archiveArtifacts artifacts: "${ARCHIVE_PATH}"
         }
 
         sleep(time: sleep_time, unit: "SECONDS")

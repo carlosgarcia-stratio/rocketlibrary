@@ -9,7 +9,7 @@
     <description>Stratio Jenkins shared library for Rocket workflows promotion</description>
 
     <properties>
-        <groovy.version>2.4.1</groovy.version>
+        <groovy.version>2.4.21</groovy.version>
         <jenkins-core.version>2.121.1</jenkins-core.version>
         <pipeline-utility-steps.version>2.3.0</pipeline-utility-steps.version>
         <workflow-step-api.version>2.15</workflow-step-api.version>
